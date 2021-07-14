@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LightNorma.Model
+namespace LightNorma.Models
 {
     public class IndustrialTotalTable
     {
