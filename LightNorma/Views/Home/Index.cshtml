@@ -1,0 +1,57 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model IEnumerable<LightNorma.Models.IndustrialLightNormaSet>
+@{    
+    Layout = null;
+}
+<!doctype html>
+<html>
+<head>
+    <title>LightNorma</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width">
+</head>
+<body>
+    <h2>Приложение запущено</h2>
+    <h3>Таблица 4.1- Требования к освещению помещений промышленных предприятий</h3>
+    <table border="1" width="100%">
+        <tr>
+            <td rowspan="4" width="2%">N№ поз.</td>
+            <td rowspan="4" width="9%">Характеристика зрительной работы</td>
+            <td rowspan="4" width="8%">Наименьший или эквивалентный размер объекта различения, мм</td>
+            <td rowspan="4" width="6%">Разряд зрительной работы</td>
+            <td rowspan="4" width="6%">Подразряд зрительной работы</td>
+            <td rowspan="4" width="5%">Контраст объекта с фоном</td>
+            <td rowspan="4" width="9">Характеристика фона</td>
+            <td colspan="5">Искусственное освещение</td>
+            <td colspan="2">Естественное освещение</td>
+            <td colspan="2">Совмещенное освещение</td>
+        </tr>
+        <tr>
+
+            <td colspan="3">Освещенность, лк</td>
+            <td colspan="2">Сочетание нормируемых величин объединенного показателя дискомфорта UGR и коэффициента пульсации</td>
+            <td colspan="4">КЕО ен, %</td>
+        </tr>
+        <tr>
+            <td colspan="2">при системе комбинированного освещения</td>
+            <td rowspan="2" width="6%">при системе общего освещения</td>
+            <td rowspan="2" width="4%">UGR, не более</td>
+            <td rowspan="2" width="4%">Кп, %, не более</td>
+            <td rowspan="2" width="10%">при верхнем или комбинированном освещении</td>
+            <td rowspan="2" width="6%">при боковом освещении</td>
+            <td rowspan="2" width="10%">при верхнем или комбинированном освещении</td>
+            <td rowspan="2" width="5%">при боковом освещении</td>
+        </tr>
+        <tr>
+
+            <td width="3%">Всего</td>
+            <td width="7%">В том числе от общего</td>
+
+        </tr>
+
+    </table>
+    @await Html.PartialAsync("~/Views/IndustNorma/_GetIndexUser.cshtml", Model)
+</body>
+</html>
