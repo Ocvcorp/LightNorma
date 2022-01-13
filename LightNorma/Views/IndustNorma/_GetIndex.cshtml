@@ -11,9 +11,9 @@
 <table border="1">
     @foreach (var ilns in Model)
     {
-         <tr id=@ilns.Id.ToString()>            
+        <tr id=@ilns.Id.ToString()>
             <td width="2%"> @Html.ActionLink("Edit", "Edit", "IndustNorma", null, null, "editFormPlace", new { id = ilns.Id }, null)</td>
-            <td width="1%"> @Html.ActionLink("Del", "Delete", new { id = ilns.Id })</td>
+            <td width="1%"> @Html.ActionLink("Del", "Delete", null, null, null, null, new { id = ilns.Id }, new { id = "DeleteLink" })</td>
             <td width="2%">@ilns.Id</td>
             <td width="9%">@ilns.EyeAccuracy</td>
             <td width="8%">@ilns.MinObjectSize0 &lt а &lt @ilns.MinObjectSizeN </td>
@@ -34,3 +34,9 @@
     }
 </table>
 
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+        $("body").on("click","#DeleteLink", function () {
+            return confirm("Удалить запись?");
+        });
+</script>

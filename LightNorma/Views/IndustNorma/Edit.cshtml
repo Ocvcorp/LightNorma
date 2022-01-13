@@ -58,6 +58,7 @@
     </table>
 
     @await Html.PartialAsync("_GetIndex", ViewBag.DBup as List<LightNorma.Models.IndustrialLightNormaSet>)
+    
     <a name="editFormPlace"></a>
     <form method="post" id="EditForm">
         <table>
@@ -109,8 +110,8 @@
 
             </tr>
             <tr>
-                <td>@Html.ActionLink("Cancel", "Create",null,null,null, @Model.Id.ToString(), null, null)</td>
-                <td>@Html.ActionLink("Delete", "Delete", new { id = Model.Id })</td>
+                <td>@Html.ActionLink("Cancel", "Create", null, null, null, @Model.Id.ToString(), null, null)</td>
+                <td>@Html.ActionLink("Delete", "Delete", null, null, null, null, new { id = Model.Id }, new { id="DeleteLink"})</td>
             </tr>
         </table>
     </form>
@@ -125,7 +126,11 @@
             return confirm("Сохранить изменения?");
         });
     </script>
-
+    <script type="text/javascript">
+        $("body").on("click","#DeleteLink", function () {
+            return confirm("Удалить запись?");
+        });
+    </script>
 
 </body>
 </html>
