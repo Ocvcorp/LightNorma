@@ -20,23 +20,23 @@ namespace LightNorma.Controllers
         {
             var setsILN = db.IndustrialLightNormaSets.Include(p => p.SP52IndustrialWorkRank)
                                                      .Include(p => p.SP52IndustrialWorkSubRank)
-                                                                .Include(p => p.SP52BackgroundContrast)
-                                                                .Include(p => p.SP52BackgroundCharacteristic)
-                                                                .Include(p => p.CombinedCommonPartIlluminance)
-                                                                .Include(p => p.CombinedTotalIlluminance)
-                                                                .Include(p => p.CommonIlluminance);           
-            ViewBag.DB =setsILN?.ToList();
+                                                     .Include(p => p.SP52BackgroundContrast)
+                                                     .Include(p => p.SP52BackgroundCharacteristic)
+                                                     .Include(p => p.CombinedCommonPartIlluminance)
+                                                     .Include(p => p.CombinedTotalIlluminance)
+                                                     .Include(p => p.CommonIlluminance);           
+            ViewBag.DB =setsILN.ToList();
 
-            SelectList sP52IndustrialWorkRanks = new SelectList(db.sp52industrialWorkRanks, "Id", "Value", 1);
+            SelectList sP52IndustrialWorkRanks = new SelectList(db.sp52industrialWorkRanks, "Id", "Value");
             ViewBag.SP52IndustrialWorkRanks = sP52IndustrialWorkRanks;
 
-            SelectList sP52IndustrialWorkSubRanks = new SelectList(db.sp52industrialWorkSubRanks, "Id", "Value", 1);
+            SelectList sP52IndustrialWorkSubRanks = new SelectList(db.sp52industrialWorkSubRanks, "Id", "Value");
             ViewBag.SP52IndustrialSubWorkRanks = sP52IndustrialWorkSubRanks;
 
-            SelectList BackgroundContrasts = new SelectList(db.sp52backgroundContrasts, "Id", "Value", 1);
+            SelectList BackgroundContrasts = new SelectList(db.sp52backgroundContrasts, "Id", "Value");
             ViewBag.BackgroundContrasts = BackgroundContrasts;
 
-            SelectList SP52BackgroundCharacteristics = new SelectList(db.sp52BackgroundCharacteristics, "Id", "Value", 1);
+            SelectList SP52BackgroundCharacteristics = new SelectList(db.sp52BackgroundCharacteristics, "Id", "Value");
             ViewBag.SP52BackgroundCharacteristics = SP52BackgroundCharacteristics;
 
             SelectList CombinedTotalIlluminances = new SelectList(db.sp52Illuminances, "Id", "Value");
@@ -58,11 +58,8 @@ namespace LightNorma.Controllers
             {
                 db.IndustrialLightNormaSets.Add(industrialLightNormaSet);
                 db.SaveChanges();
-                return RedirectToAction("Create", null, null, industrialLightNormaSet.Id.ToString());//ссылка на своё же представление??? нужно сделать, чтобы просто в конец страницы переходил после добавления
+                return RedirectToAction("Create", null, null, "bottom");
             }
-
-
-
             return View();
         }
 
@@ -71,16 +68,16 @@ namespace LightNorma.Controllers
         {
 
             var setsILNup = from il in db.IndustrialLightNormaSets.Include(p => p.SP52IndustrialWorkRank)
-                                                     .Include(p => p.SP52IndustrialWorkSubRank)
-                                                     .Include(p => p.SP52BackgroundContrast)
-                                                     .Include(p => p.SP52BackgroundCharacteristic)
-                                                     .Include(p => p.CombinedCommonPartIlluminance)
-                                                     .Include(p => p.CombinedTotalIlluminance)
-                                                     .Include(p => p.CommonIlluminance)
+                                                                  .Include(p => p.SP52IndustrialWorkSubRank)
+                                                                  .Include(p => p.SP52BackgroundContrast)
+                                                                  .Include(p => p.SP52BackgroundCharacteristic)
+                                                                  .Include(p => p.CombinedCommonPartIlluminance)
+                                                                  .Include(p => p.CombinedTotalIlluminance)
+                                                                  .Include(p => p.CommonIlluminance)
                           where il.Id<id
                           select il;
 
-            ViewBag.DBup = setsILNup?.ToList();
+            ViewBag.DBup = setsILNup.ToList();
 
             var setsILNdown = from il in db.IndustrialLightNormaSets.Include(p => p.SP52IndustrialWorkRank)
                                                      .Include(p => p.SP52IndustrialWorkSubRank)
@@ -92,7 +89,7 @@ namespace LightNorma.Controllers
                             where il.Id > id
                             select il;
 
-            ViewBag.DBdown = setsILNdown?.ToList();
+            ViewBag.DBdown = setsILNdown.ToList();
 
             IndustrialLightNormaSet ilns = db.IndustrialLightNormaSets.Find(id);
 
@@ -134,8 +131,6 @@ namespace LightNorma.Controllers
                                                 ? new SelectList(db.sp52Illuminances, "Id", "Value")
                                                 : new SelectList(db.sp52Illuminances, "Id", "Value", db.sp52Illuminances.Find(CommonIlluminanceId).Id);
             ViewBag.CommonIlluminances = CommonIlluminances;
-
-
             return View(ilns);
         }
         
@@ -144,7 +139,6 @@ namespace LightNorma.Controllers
         {
             if (ModelState.IsValid)
             {
-                //db.IndustrialLightNormaSets.Add(industrialLightNormaSet);
                 db.Entry(industrialLightNormaSet).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Create", null,null,industrialLightNormaSet.Id.ToString());
