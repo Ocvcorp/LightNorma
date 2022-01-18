@@ -57,10 +57,9 @@ namespace LightNorma.Controllers
             if (ModelState.IsValid)
             {
                 db.IndustrialLightNormaSets.Add(industrialLightNormaSet);
-                db.SaveChanges();
-                return RedirectToAction("Create", null, null, "bottom");
+                db.SaveChanges();               
             }
-            return View();
+            return RedirectToAction("Create", null, null, "bottom");
         }
 
 
@@ -140,10 +139,10 @@ namespace LightNorma.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(industrialLightNormaSet).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Create", null,null,industrialLightNormaSet.Id.ToString());
+                db.SaveChanges();    
             }
-            return View();
+            return RedirectToAction("Create", null,null,industrialLightNormaSet.Id.ToString());
+            //return View();
         }
 
 

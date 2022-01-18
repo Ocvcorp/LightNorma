@@ -90,6 +90,7 @@
             <tr>
                 <td>Освещенность (общее освешение)</td>
                 <td>@Html.DropDownListFor(model => model.CommonIlluminanceId, ViewBag.CommonIlluminances as SelectList, "None") </td>
+                <span asp-validation-for="CommonIlluminanceId"></span>
             </tr>
             <tr>
                 <td>UGR/Кп</td>
@@ -113,14 +114,19 @@
         </table>
     </form>
 
-<a name="bottom"></a>
-
+    <a name="bottom"></a>
+    @section scripts{
+        <script src="~/lib/jquery-validate/jquery.validate.min.js"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    }
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript">
         $("body").on("submit", "#CreateForm", function () {
             return confirm("Добавить запись?");
         });
     </script>
+
+
 
 </body>
 </html>

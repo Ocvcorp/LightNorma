@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <Folder Include="AppData\" />
+    <Folder Include="lib\" />
   </ItemGroup>
 
 </Project>
