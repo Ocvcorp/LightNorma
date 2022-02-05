@@ -4,11 +4,10 @@
   "libraries": [
     {
       "library": "jquery-validate@1.19.3",
-      "destination": "lib/jquery-validate/"
-    },
-    {
-      "library": "jquery-validation-unobtrusive@3.2.12",
-      "destination": "lib/jquery-validation-unobtrusive/"
+      "destination": "wwwroot/lib/jquery-validate/",
+      "files": [
+        "jquery-validation-sri.json"
+      ]
     }
   ]
 }

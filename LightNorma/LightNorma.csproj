@@ -15,7 +15,22 @@
 
   <ItemGroup>
     <Folder Include="AppData\" />
-    <Folder Include="lib\" />
+    <Folder Include="Views\Shared\" />
+    <Folder Include="wwwroot\lib\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\lib\jquery-validate\additional-methods.js" />
+    <None Include="wwwroot\lib\jquery-validate\additional-methods.min.js" />
+    <None Include="wwwroot\lib\jquery-validate\jquery.validate.js" />
+    <None Include="wwwroot\lib\jquery-validate\jquery.validate.min.js" />
+    <None Include="wwwroot\lib\jquery-validate\localization\messages_ru.js" />
+    <None Include="wwwroot\lib\jquery-validate\localization\messages_ru.min.js" />
+    <None Include="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js" />
+    <None Include="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js" />
+    <None Include="wwwroot\lib\jquery\jquery.js" />
+    <None Include="wwwroot\lib\jquery\jquery.min.js" />
+    <None Include="wwwroot\lib\jquery\jquery.min.map" />
   </ItemGroup>
 
 </Project>

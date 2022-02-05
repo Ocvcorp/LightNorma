@@ -9,10 +9,12 @@ namespace LightNorma.Models
     public class IndustrialLightNormaSet
     {
         public int Id { get; set; }
+        [Required(ErrorMessage = "Не указана характеристика")]
         public string EyeAccuracy { get; set; }
         public double? MinObjectSize0 { get; set; }
         public double? MinObjectSizeN { get; set; }
 
+        [Required(ErrorMessage = "Не указан разряд")]
         public int? SP52IndustrialWorkRankId { get; set;}
         public SP52Constants.SP52IndustrialWorkRank SP52IndustrialWorkRank { get; set; }
 
@@ -31,7 +33,7 @@ namespace LightNorma.Models
         public int? CombinedCommonPartIlluminanceId { get; set; }
         public SP52Constants.SP52Illuminance CombinedCommonPartIlluminance { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Не выбрана освещенность")]
         public int? CommonIlluminanceId { get; set; }
         public SP52Constants.SP52Illuminance CommonIlluminance { get; set; }
 

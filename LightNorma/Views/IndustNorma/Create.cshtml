@@ -1,132 +1,130 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+
 @model LightNorma.Models.IndustrialLightNormaSet
-@{
-    Layout = null;
-}
-<html>
-<head>
-    <title>
-        СП 52.13330.2016
-    </title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width">
-</head>
 
-<body>
-    <h3>Таблица 4.1- Требования к освещению помещений промышленных предприятий</h3>
-    <table border="1" width="100%">
+
+<h3>Таблица 4.1- Требования к освещению помещений промышленных предприятий</h3>
+<table border="1" width="100%">
+    <tr>
+        <td rowspan="4" width="2%">Edit</td>
+        <td rowspan="4" width="1%">Del</td>
+        <td rowspan="4" width="2%">N№ поз.</td>
+        <td rowspan="4" width="9%">Характеристика зрительной работы</td>
+        <td rowspan="4" width="8%">Наименьший или эквивалентный размер объекта различения, мм</td>
+        <td rowspan="4" width="6%">Разряд зрительной работы</td>
+        <td rowspan="4" width="6%">Подразряд зрительной работы</td>
+        <td rowspan="4" width="5%">Контраст объекта с фоном</td>
+        <td rowspan="4" width="9">Характеристика фона</td>
+        <td colspan="5">Искусственное освещение</td>
+        <td colspan="2">Естественное освещение</td>
+        <td colspan="2">Совмещенное освещение</td>
+    </tr>
+    <tr>
+
+        <td colspan="3">Освещенность, лк</td>
+        <td colspan="2">Сочетание нормируемых величин объединенного показателя дискомфорта UGR и коэффициента пульсации</td>
+        <td colspan="4">КЕО ен, %</td>
+    </tr>
+    <tr>
+        <td colspan="2">при системе комбинированного освещения</td>
+        <td rowspan="2" width="6%">при системе общего освещения</td>
+        <td rowspan="2" width="4%">UGR, не более</td>
+        <td rowspan="2" width="4%">Кп, %, не более</td>
+        <td rowspan="2" width="7%">при верхнем или комбинированном освещении</td>
+        <td rowspan="2" width="6%">при боковом освещении</td>
+        <td rowspan="2" width="10%">при верхнем или комбинированном освещении</td>
+        <td rowspan="2" width="5%">при боковом освещении</td>
+    </tr>
+    <tr>
+
+        <td width="3%">Всего</td>
+        <td width="7%">В том числе от общего</td>
+
+    </tr>
+
+</table>
+
+@await Html.PartialAsync("_GetIndexPartial", ViewBag.DB as List<LightNorma.Models.IndustrialLightNormaSet>)
+
+<form method="post" id="CreateForm">
+    <table>
+        Html.AntiForgeryToken()
         <tr>
-            <td rowspan="4" width="2%">Edit</td>
-            <td rowspan="4" width="1%">Del</td>
-            <td rowspan="4" width="2%">N№ поз.</td>
-            <td rowspan="4" width="9%">Характеристика зрительной работы</td>
-            <td rowspan="4" width="8%">Наименьший или эквивалентный размер объекта различения, мм</td>
-            <td rowspan="4" width="6%">Разряд зрительной работы</td>
-            <td rowspan="4" width="6%">Подразряд зрительной работы</td>
-            <td rowspan="4" width="5%">Контраст объекта с фоном</td>
-            <td rowspan="4" width="9">Характеристика фона</td>
-            <td colspan="5">Искусственное освещение</td>
-            <td colspan="2">Естественное освещение</td>
-            <td colspan="2">Совмещенное освещение</td>
+            <td>@Html.Label("EyeAccuracy", "Характеристика зрительной работы")</td>
+            <td>
+                @Html.EditorFor(model => model.EyeAccuracy)
+                @Html.ValidationMessageFor(model => model.EyeAccuracy)
+            </td>
+        </tr>
+        <tr>
+            <td>Размеры объекта различения</td>
+            <td>@Html.EditorFor(model => model.MinObjectSize0)</td>
+            <td>@Html.EditorFor(model => model.MinObjectSizeN)</td>
+        </tr>
+        <tr>
+            <td>Разряд/подразряд зрительной работы</td>
+            <td>
+                @Html.DropDownListFor(model => model.SP52IndustrialWorkRankId, ViewBag.SP52IndustrialWorkRanks as SelectList)
+                @Html.ValidationMessageFor(model => model.SP52IndustrialWorkRankId)
+            </td>
+
+            <td>@Html.DropDownListFor(model => model.SP52IndustrialWorkSubRankId, ViewBag.SP52IndustrialSubWorkRanks as SelectList) </td>
+        </tr>
+        <tr>
+            <td>Контраст объекта с фоном/Характеристика фона</td>
+            <td>@Html.DropDownListFor(model => model.SP52BackgroundContrastId, ViewBag.BackgroundContrasts as SelectList) </td>
+            <td>@Html.DropDownListFor(model => model.SP52BackgroundCharacteristicId, ViewBag.SP52BackgroundCharacteristics as SelectList) </td>
+        </tr>
+        <tr>
+            <td>Освещенность (комбинированный режим): Всего/От общего</td>
+            <td>@Html.DropDownListFor(model => model.CombinedTotalIlluminanceId, ViewBag.CombinedTotalIlluminances as SelectList, "None") </td>
+            <td>@Html.DropDownListFor(model => model.CombinedCommonPartIlluminanceId, ViewBag.CombinedCommonPartIlluminances as SelectList, "None") </td>
+        </tr>
+        <tr>
+            <td>@Html.Label("CommonIlluminanceId", "Освещенность (общее освешение)")</td>
+            <td>
+                @Html.DropDownListFor(model => model.CommonIlluminanceId, ViewBag.CommonIlluminances as SelectList, "None")
+                @Html.ValidationMessageFor(model => model.CommonIlluminanceId)
+            </td>
+        </tr>
+        <tr>
+            <td>UGR/Кп</td>
+            <td>@Html.EditorFor(model => model.UGR)</td>
+            <td>@Html.EditorFor(model => model.FF)</td>
+        </tr>
+        <tr>
+            <td>КЕО (Естественное освещ) верх-комбинир./боковое </td>
+            <td>@Html.EditorFor(model => model.NaturalTopOrCombinedDF)</td>
+            <td>@Html.EditorFor(model => model.NaturalSideDF)</td>
+        </tr>
+        <tr>
+            <td>КЕО (Совмещенное освещ) верх-комбинир./боковое </td>
+            <td>@Html.EditorFor(model => model.NatArtifTopOrCombinedDF)</td>
+            <td>@Html.EditorFor(model => model.NatArtifSideDF)</td>
         </tr>
         <tr>
 
-            <td colspan="3">Освещенность, лк</td>
-            <td colspan="2">Сочетание нормируемых величин объединенного показателя дискомфорта UGR и коэффициента пульсации</td>
-            <td colspan="4">КЕО ен, %</td>
-        </tr>
-        <tr>
-            <td colspan="2">при системе комбинированного освещения</td>
-            <td rowspan="2" width="6%">при системе общего освещения</td>
-            <td rowspan="2" width="4%">UGR, не более</td>
-            <td rowspan="2" width="4%">Кп, %, не более</td>
-            <td rowspan="2" width="7%">при верхнем или комбинированном освещении</td>
-            <td rowspan="2" width="6%">при боковом освещении</td>
-            <td rowspan="2" width="10%">при верхнем или комбинированном освещении</td>
-            <td rowspan="2" width="5%">при боковом освещении</td>
-        </tr>
-        <tr>
-
-            <td width="3%">Всего</td>
-            <td width="7%">В том числе от общего</td>
+            <td><input type="submit" value="Записать" /></td>
 
         </tr>
-
     </table>
+</form>
 
-    @await Html.PartialAsync("_GetIndex", ViewBag.DB as List<LightNorma.Models.IndustrialLightNormaSet>)
+
+<a name="bottom"></a>
 
 
-    <h2>Добавить запись</h2>
+<script type="text/javascript" src="~/lib/jquery/jquery.min.js"></script>
+<script src="~/lib/jquery-validate/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 
-    <form method="post" id="CreateForm">
-        <table>
-            <tr>
-                <td>Характеристика зрительной работы</td>
-                <td>@Html.EditorFor(model => model.EyeAccuracy)</td>
-            </tr>
-            <tr>
-                <td>Размеры объекта различения</td>
-                <td>@Html.EditorFor(model => model.MinObjectSize0)</td>
-                <td>@Html.EditorFor(model => model.MinObjectSizeN)</td>
-            </tr>
-            <tr>
-                <td>Разряд/подразряд зрительной работы</td>
-                <td>@Html.DropDownListFor(model => model.SP52IndustrialWorkRankId, ViewBag.SP52IndustrialWorkRanks as SelectList) </td>
-                <td>@Html.DropDownListFor(model => model.SP52IndustrialWorkSubRankId, ViewBag.SP52IndustrialSubWorkRanks as SelectList) </td>
-            </tr>
-            <tr>
-                <td>Контраст объекта с фоном/Характеристика фона</td>
-                <td>@Html.DropDownListFor(model => model.SP52BackgroundContrastId, ViewBag.BackgroundContrasts as SelectList) </td>
-                <td>@Html.DropDownListFor(model => model.SP52BackgroundCharacteristicId, ViewBag.SP52BackgroundCharacteristics as SelectList) </td>
-            </tr>
-            <tr>
-                <td>Освещенность (комбинированный режим): Всего/От общего</td>
-                <td>@Html.DropDownListFor(model => model.CombinedTotalIlluminanceId, ViewBag.CombinedTotalIlluminances as SelectList, "None") </td>
-                <td>@Html.DropDownListFor(model => model.CombinedCommonPartIlluminanceId, ViewBag.CombinedCommonPartIlluminances as SelectList, "None") </td>
-            </tr>
-            <tr>
-                <td>Освещенность (общее освешение)</td>
-                <td>@Html.DropDownListFor(model => model.CommonIlluminanceId, ViewBag.CommonIlluminances as SelectList, "None") </td>
-                <span asp-validation-for="CommonIlluminanceId"></span>
-            </tr>
-            <tr>
-                <td>UGR/Кп</td>
-                <td>@Html.EditorFor(model => model.UGR)</td>
-                <td>@Html.EditorFor(model => model.FF)</td>
-            </tr>
-            <tr>
-                <td>КЕО (Естественное освещ) верх-комбинир./боковое </td>
-                <td>@Html.EditorFor(model => model.NaturalTopOrCombinedDF)</td>
-                <td>@Html.EditorFor(model => model.NaturalSideDF)</td>
-            </tr>
-            <tr>
-                <td>КЕО (Совмещенное освещ) верх-комбинир./боковое </td>
-                <td>@Html.EditorFor(model => model.NatArtifTopOrCombinedDF)</td>
-                <td>@Html.EditorFor(model => model.NatArtifSideDF)</td>
-            </tr>
-            <tr>
-                <td><input type="submit" value="Save" /> </td>
-            </tr>
-
-        </table>
-    </form>
-
-    <a name="bottom"></a>
-    @section scripts{
-        <script src="~/lib/jquery-validate/jquery.validate.min.js"></script>
-        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-    }
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <script type="text/javascript">
-        $("body").on("submit", "#CreateForm", function () {
-            return confirm("Добавить запись?");
-        });
-    </script>
+<script type="text/javascript">
+    $("body").on("submit", "#CreateForm", function () {
+        return confirm("Добавить запись?");
+    });
+</script>
 
 
 
-</body>
-</html>

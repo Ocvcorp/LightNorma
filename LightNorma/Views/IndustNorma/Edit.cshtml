@@ -57,7 +57,7 @@
 
     </table>
 
-    @await Html.PartialAsync("_GetIndex", ViewBag.DBup as List<LightNorma.Models.IndustrialLightNormaSet>)
+    @await Html.PartialAsync("_GetIndexPartial", ViewBag.DBup as List<LightNorma.Models.IndustrialLightNormaSet>)
     
     <a name="editFormPlace"></a>
     <form method="post" id="EditForm">
@@ -117,7 +117,7 @@
     </form>
 
 
-    @await Html.PartialAsync("_GetIndex", ViewBag.DBdown as List<LightNorma.Models.IndustrialLightNormaSet>)
+    @await Html.PartialAsync("_GetIndexPartial", ViewBag.DBdown as List<LightNorma.Models.IndustrialLightNormaSet>)
 
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
