@@ -33,7 +33,6 @@ namespace LightNorma.Models
         public int? CombinedCommonPartIlluminanceId { get; set; }
         public SP52Constants.SP52Illuminance CombinedCommonPartIlluminance { get; set; }
 
-        [Required(ErrorMessage = "Не выбрана освещенность")]
         public int? CommonIlluminanceId { get; set; }
         public SP52Constants.SP52Illuminance CommonIlluminance { get; set; }
 

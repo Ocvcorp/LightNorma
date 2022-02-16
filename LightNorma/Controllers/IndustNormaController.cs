@@ -27,28 +27,32 @@ namespace LightNorma.Controllers
                                                      .Include(p => p.CommonIlluminance);           
             ViewBag.DB =setsILN.ToList();
 
-            SelectList sP52IndustrialWorkRanks = new SelectList(db.sp52industrialWorkRanks, "Id", "Value");
+            IndustrialLightNormaSet industrialLightNormaSet = db.IndustrialLightNormaSets.OrderBy(p=>p.Id).LastOrDefault();
+
+            SelectList sP52IndustrialWorkRanks = new SelectList(db.sp52industrialWorkRanks, "Id", "Value", industrialLightNormaSet.SP52IndustrialWorkRankId);
             ViewBag.SP52IndustrialWorkRanks = sP52IndustrialWorkRanks;
 
-            SelectList sP52IndustrialWorkSubRanks = new SelectList(db.sp52industrialWorkSubRanks, "Id", "Value");
+            SelectList sP52IndustrialWorkSubRanks = new SelectList(db.sp52industrialWorkSubRanks, "Id", "Value", industrialLightNormaSet.SP52IndustrialWorkSubRankId);
             ViewBag.SP52IndustrialSubWorkRanks = sP52IndustrialWorkSubRanks;
 
-            SelectList BackgroundContrasts = new SelectList(db.sp52backgroundContrasts, "Id", "Value");
+            SelectList BackgroundContrasts = new SelectList(db.sp52backgroundContrasts, "Id", "Value", industrialLightNormaSet.SP52BackgroundContrastId);
             ViewBag.BackgroundContrasts = BackgroundContrasts;
 
-            SelectList SP52BackgroundCharacteristics = new SelectList(db.sp52BackgroundCharacteristics, "Id", "Value");
+            SelectList SP52BackgroundCharacteristics = new SelectList(db.sp52BackgroundCharacteristics, "Id", "Value", industrialLightNormaSet.SP52BackgroundCharacteristicId);
             ViewBag.SP52BackgroundCharacteristics = SP52BackgroundCharacteristics;
 
-            SelectList CombinedTotalIlluminances = new SelectList(db.sp52Illuminances, "Id", "Value");
+            SelectList CombinedTotalIlluminances = new SelectList(db.sp52Illuminances, "Id", "Value", industrialLightNormaSet.CombinedTotalIlluminanceId);
             ViewBag.CombinedTotalIlluminances = CombinedTotalIlluminances;
 
-            SelectList CombinedCommonPartIlluminances = new SelectList(db.sp52Illuminances, "Id", "Value");
+            SelectList CombinedCommonPartIlluminances = new SelectList(db.sp52Illuminances, "Id", "Value", industrialLightNormaSet.CombinedCommonPartIlluminanceId);
             ViewBag.CombinedCommonPartIlluminances = CombinedCommonPartIlluminances;
 
-            SelectList CommonIlluminances = new SelectList(db.sp52Illuminances, "Id", "Value");
+            SelectList CommonIlluminances = new SelectList(db.sp52Illuminances, "Id", "Value", industrialLightNormaSet.CommonIlluminanceId);
             ViewBag.CommonIlluminances = CommonIlluminances;
 
-            return View();
+            
+
+            return View(industrialLightNormaSet);
         }
       
         [HttpPost]

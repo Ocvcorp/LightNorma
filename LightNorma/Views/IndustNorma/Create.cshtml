@@ -1,9 +1,7 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-
-@model LightNorma.Models.IndustrialLightNormaSet
-
+﻿@model LightNorma.Models.IndustrialLightNormaSet
+@{
+    ViewData["Title"] = "СП52.133300.2016";
+}
 
 <h3>Таблица 4.1- Требования к освещению помещений промышленных предприятий</h3>
 <table border="1" width="100%">
@@ -50,7 +48,7 @@
 
 <form method="post" id="CreateForm">
     <table>
-        Html.AntiForgeryToken()
+        @Html.AntiForgeryToken()
         <tr>
             <td>@Html.Label("EyeAccuracy", "Характеристика зрительной работы")</td>
             <td>
@@ -70,12 +68,12 @@
                 @Html.ValidationMessageFor(model => model.SP52IndustrialWorkRankId)
             </td>
 
-            <td>@Html.DropDownListFor(model => model.SP52IndustrialWorkSubRankId, ViewBag.SP52IndustrialSubWorkRanks as SelectList) </td>
+            <td>@Html.DropDownListFor(model => model.SP52IndustrialWorkSubRankId, ViewBag.SP52IndustrialSubWorkRanks as SelectList, "None") </td>
         </tr>
         <tr>
             <td>Контраст объекта с фоном/Характеристика фона</td>
-            <td>@Html.DropDownListFor(model => model.SP52BackgroundContrastId, ViewBag.BackgroundContrasts as SelectList) </td>
-            <td>@Html.DropDownListFor(model => model.SP52BackgroundCharacteristicId, ViewBag.SP52BackgroundCharacteristics as SelectList) </td>
+            <td>@Html.DropDownListFor(model => model.SP52BackgroundContrastId, ViewBag.BackgroundContrasts as SelectList,"None") </td>
+            <td>@Html.DropDownListFor(model => model.SP52BackgroundCharacteristicId, ViewBag.SP52BackgroundCharacteristics as SelectList, "None") </td>
         </tr>
         <tr>
             <td>Освещенность (комбинированный режим): Всего/От общего</td>
@@ -86,7 +84,6 @@
             <td>@Html.Label("CommonIlluminanceId", "Освещенность (общее освешение)")</td>
             <td>
                 @Html.DropDownListFor(model => model.CommonIlluminanceId, ViewBag.CommonIlluminances as SelectList, "None")
-                @Html.ValidationMessageFor(model => model.CommonIlluminanceId)
             </td>
         </tr>
         <tr>
@@ -115,16 +112,18 @@
 
 <a name="bottom"></a>
 
-
-<script type="text/javascript" src="~/lib/jquery/jquery.min.js"></script>
-<script src="~/lib/jquery-validate/jquery.validate.js"></script>
-<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-
-<script type="text/javascript">
-    $("body").on("submit", "#CreateForm", function () {
-        return confirm("Добавить запись?");
-    });
-</script>
-
-
+@section scripts
+{
+    @*<script type="text/javascript">
+            $("body").on("submit", "#CreateForm", function () {
+                return confirm("Добавить запись?");
+            });
+        </script>*@
+    <script type="text/javascript">
+        $("body").on("click", "#DeleteLink", function () {
+            return confirm("Удалить запись?");
+        });
+    </script>
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
 

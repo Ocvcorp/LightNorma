@@ -15,7 +15,6 @@
 
   <ItemGroup>
     <Folder Include="AppData\" />
-    <Folder Include="Views\Shared\" />
     <Folder Include="wwwroot\lib\" />
   </ItemGroup>
 

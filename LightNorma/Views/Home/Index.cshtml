@@ -1,10 +1,6 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿
 @model IEnumerable<LightNorma.Models.IndustrialLightNormaSet>
-@{    
-    Layout = null;
-}
+
 <!doctype html>
 <html>
 <head>
@@ -52,6 +48,6 @@
         </tr>
 
     </table>
-    @await Html.PartialAsync("~/Views/IndustNorma/_GetIndexUser.cshtml", Model)
+    @await Html.PartialAsync("~/Views/IndustNorma/_GetIndexUserPartial.cshtml", Model)
 </body>
 </html>

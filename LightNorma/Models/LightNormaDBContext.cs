@@ -26,8 +26,7 @@ namespace LightNorma.Models
         public LightNormaDBContext(DbContextOptions<LightNormaDBContext> options)
             :base(options)
         {
-            //Database.EnsureDeleted();
-            //Database.EnsureCreated();
+
         }
     }
 }

@@ -1,10 +1,5 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@model LightNorma.Models.IndustrialLightNormaSet
-{
-    Layout = null;
-}
+﻿@model LightNorma.Models.IndustrialLightNormaSet
+
 <html>
 <head>
     <title>
@@ -74,12 +69,12 @@
             <tr>
                 <td>Разряд/подразряд зрительной работы</td>
                 <td>@Html.DropDownListFor(model => model.SP52IndustrialWorkRankId, ViewBag.SP52IndustrialWorkRanks as SelectList) </td>
-                <td>@Html.DropDownListFor(model => model.SP52IndustrialWorkSubRankId, ViewBag.SP52IndustrialSubWorkRanks as SelectList) </td>
+                <td>@Html.DropDownListFor(model => model.SP52IndustrialWorkSubRankId, ViewBag.SP52IndustrialSubWorkRanks as SelectList, "None") </td>
             </tr>
             <tr>
                 <td>Контраст объекта с фоном/Характеристика фона</td>
-                <td>@Html.DropDownListFor(model => model.SP52BackgroundContrastId, ViewBag.BackgroundContrasts as SelectList) </td>
-                <td>@Html.DropDownListFor(model => model.SP52BackgroundCharacteristicId, ViewBag.SP52BackgroundCharacteristics as SelectList) </td>
+                <td>@Html.DropDownListFor(model => model.SP52BackgroundContrastId, ViewBag.BackgroundContrasts as SelectList, "None") </td>
+                <td>@Html.DropDownListFor(model => model.SP52BackgroundCharacteristicId, ViewBag.SP52BackgroundCharacteristics as SelectList, "None") </td>
             </tr>
             <tr>
                 <td>Освещенность (комбинированный режим): Всего/От общего</td>
