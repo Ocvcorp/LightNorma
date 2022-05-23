@@ -8,6 +8,8 @@ namespace LightNorma.Models
 {
     public class LightNormaDBContext:DbContext
     {
+        public DbSet<LightReglament> LightReglaments { get; set; }
+        public DbSet<UserInfrastructure.User> Users { get; set; }
         public DbSet<SP52Constants.SP52Illuminance> sp52Illuminances { get; set; }
         public DbSet<SP52Constants.SP52Luminance> sp52Luminances { get; set; }
         public DbSet<SP52Constants.SP52BackgroundCharacteristic> sp52BackgroundCharacteristics  { get; set; }
@@ -21,12 +23,27 @@ namespace LightNorma.Models
         public DbSet<SP52Constants.SP52PublicWorkSubRank> sp52publicWorkSubRanks { get; set; }
         public DbSet<SP52Constants.SP52RoadObjectClass> sp52roadObjectClasses { get; set; }
         public DbSet<SP52Constants.SP52TonnelClass> sp52tonnelClasses { get; set; }
+        public DbSet<SP52Constants.SP52PublicLightNormaNote> sP52PublicLightNormaNotes { get; set; } 
+        public DbSet<SP52Constants.PublicLightNormaSetSP52PublicLightNormaNote> publicLightNormaSetSP52PublicLightNormaNotes { get; set; }
         public DbSet<IndustrialLightNormaSet> IndustrialLightNormaSets { get; set; }
+        public DbSet<PublicLightNormaSet> PublicLightNormaSets { get; set; }
 
         public LightNormaDBContext(DbContextOptions<LightNormaDBContext> options)
             :base(options)
         {
-
+            
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<PublicLightNormaSet>().HasMany(x => x.SP52PublicLightNormaNotes)
+                .WithMany(x => x.publicLightNormaSets)
+                .UsingEntity<SP52Constants.PublicLightNormaSetSP52PublicLightNormaNote>(
+                x => x.HasOne(x => x.SP52PublicLightNormaNote).WithMany().HasForeignKey(x => x.SP52PublicLightNormaNotesId),
+                x => x.HasOne(x => x.PublicLightNormaSet)
+                .WithMany().HasForeignKey(x => x.publicLightNormaSetsId));
+        }
+
+
+
     }
 }
