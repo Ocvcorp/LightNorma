@@ -1,0 +1,181 @@
+﻿@model LightNorma.Models.IndustrialLightNormaSet
+@{
+    ViewData["Title"] = "СП52.133300.2016";
+    ViewBag.HasTableHeader = true;
+}
+@{ViewBag.StartTableNumber = 0;}
+@await Html.PartialAsync("_GetIndexPartial", ViewBag.DbAboveId as List<LightNorma.Models.IndustrialLightNormaSet>)
+
+@using (Html.BeginForm(FormMethod.Post, new { id = "CreateEditForm" }))
+{
+@Html.AntiForgeryToken()
+    <div class="container-fluid">
+        <div class="p-1">
+            <div class="row">
+                <div class="col-xl-2">
+                    @Html.LabelFor(model => model.EyeAccuracy)
+                </div>
+                <div class="col-xl-6">
+                    @Html.EditorFor(model => model.EyeAccuracy, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.EyeAccuracy, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="p-1">
+            <div class="row">
+                <div class="col-xl-2">@Html.LabelFor(model => model.MinObjectSize0)</div>
+                <div class="col-xl-2">
+                    @Html.EditorFor(model => model.MinObjectSize0, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                <div class="col-xl-2">
+                    @Html.LabelFor(model => model.MinObjectSizeN)
+                </div>
+                <div class="col-xl-2">
+                    @Html.EditorFor(model => model.MinObjectSizeN, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+        </div>
+        <div class="p-1">
+            <div class="row">
+                <div class="col-xl-2">
+                    @Html.LabelFor(model => model.SP52IndustrialWorkRank)
+                </div>
+                <div class="col-xl-2">
+                    @Html.DropDownListFor(model => model.SP52IndustrialWorkRankId, ViewBag.SP52IndustrialWorkRanks as SelectList, null, new { @class = "form-select" })
+                    @Html.ValidationMessageFor(model => model.SP52IndustrialWorkRankId,"",new {@class="text-danger"})
+                </div>
+                <div class="col-xl-2">
+                    @Html.LabelFor(model => model.SP52IndustrialWorkSubRank)
+                </div>
+                <div class="col-xl-2">
+                    @Html.DropDownListFor(model => model.SP52IndustrialWorkSubRankId, ViewBag.SP52IndustrialWorkSubRanks as SelectList, "None", new { @class = "form-select" })
+                </div>
+            </div>
+        </div>
+        <div class="p-1">
+            <div class="row">
+                <div class="col-xl-2">
+                    @Html.LabelFor(model=>model.SP52BackgroundContrast)
+                </div>
+                <div class="col-xl-2">
+                    @Html.DropDownListFor(model=>model.SP52BackgroundContrastId,ViewBag.SP52BackgroundContrasts as SelectList, "None", new { @class = "form-select" })
+                </div>
+                <div class="col-xl-2">
+                    @Html.LabelFor(model=>model.SP52BackgroundCharacteristic)
+                </div>
+                <div class="col-xl-2">
+                    @Html.DropDownListFor(model=>model.SP52BackgroundCharacteristicId,ViewBag.SP52BackgroundCharacteristics as SelectList, "None", new { @class = "form-select" })
+                </div>
+            </div>
+        </div>
+        <div class="p-1">
+            <div class="row">
+                <div class="col-xl-2">
+                    @Html.LabelFor(model=>model.CombinedTotalIlluminance)
+                </div>
+                <div class="col-xl-2">
+                    @Html.DropDownListFor(model=>model.CombinedTotalIlluminanceId,ViewBag.CombinedTotalIlluminances as SelectList, "None", new { @class = "form-select" })
+                </div>
+                <div class="col-xl-2">
+                    @Html.LabelFor(model=>model.CombinedCommonPartIlluminance)
+                </div>
+                <div class="col-xl-2">
+                    @Html.DropDownListFor(model=>model.CombinedCommonPartIlluminanceId,ViewBag.CombinedCommonPartIlluminances as SelectList, "None", new { @class = "form-select" })
+                </div>
+            </div>
+        </div>
+        <div class="p-1">
+            <div class="row">
+                <div class="col-xl-2">
+                    @Html.LabelFor(model=>model.CommonIlluminance)
+                </div>
+                <div class="col-xl-2">
+                    @Html.DropDownListFor(model=>model.CommonIlluminanceId,ViewBag.CommonIlluminances as SelectList, null, new { @class = "form-select" })                    
+                    @Html.ValidationMessageFor(model => model.CommonIlluminanceId,"", new {@class="text-danger"})
+                </div>
+            </div>
+        </div>
+        <div class="p-1">
+            <div class="row">
+                <div class="col-xl-2">
+                    @Html.LabelFor(model=>model.UGR)
+                </div>
+                <div class="col-xl-2">
+                    @Html.EditorFor(model=>model.UGR,new {htmlAttributes = new{ @class = "form-control" }})
+                </div>
+                <div class="col-xl-2">
+                    @Html.LabelFor(model=>model.FF)
+                </div>
+                <div class="col-xl-2">
+                    @Html.EditorFor(model=>model.FF,new {htmlAttributes = new{ @class = "form-control" }})
+                </div>
+            </div>
+        </div>
+        <div class="p-1">
+            <div class="row">
+                <div class="col-xl-2">
+                    @Html.LabelFor(model=>model.NaturalTopOrCombinedDF)
+                </div>
+                <div class="col-xl-2">
+                    @Html.EditorFor(model=>model.NaturalTopOrCombinedDF,new {htmlAttributes = new{ @class = "form-control" }})
+                </div>
+                <div class="col-xl-2">
+                    @Html.LabelFor(model=>model.NatArtifSideDF)
+                </div>
+                <div class="col-xl-2">
+                    @Html.EditorFor(model=>model.NaturalSideDF,new {htmlAttributes = new{ @class = "form-control" }})
+                </div>
+            </div>
+        </div>
+        <div class="p-1">
+            <div class="row">
+                <div class="col-xl-2">
+                    @Html.LabelFor(model=>model.NatArtifTopOrCombinedDF)
+                </div>
+                <div class="col-xl-2">
+                    @Html.EditorFor(model=>model.NatArtifTopOrCombinedDF,new {htmlAttributes = new{ @class = "form-control" }})
+                </div>
+                <div class="col-xl-2">
+                    @Html.LabelFor(model=>model.NatArtifSideDF)
+                </div>
+                <div class="col-xl-2">
+                    @Html.EditorFor(model=>model.NatArtifSideDF,new {htmlAttributes = new{ @class = "form-control" }})
+                </div>
+            </div>
+        </div>
+        <div class="p-1">
+            <div class="row">
+                <div class="col-xl-2">
+                    <input type="submit" value="Сохранить" class="btn-group" />
+                </div>
+                <div class="col-xl-2">                    
+                    <a href="~/IndustNorma/CreateEdit/#bottom">Отменить</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@{
+    ViewBag.StartTableNumber = (ViewBag.DbAboveId).Count+1;
+    ViewBag.HasTableHeader = false;
+}
+@await Html.PartialAsync("_GetIndexPartial", ViewBag.DbBelowId as List<LightNorma.Models.IndustrialLightNormaSet>)
+
+<a name="bottom"></a>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $("body").on("submit", "#CreateEditForm", function () {
+            return confirm("Сохранить?");
+        });
+    </script>
+    <script type="text/javascript">
+        $("body").on("click", "#DeleteLink", function () {
+            return confirm("Удалить запись?");
+        });
+    </script>
+    @await Html.PartialAsync("_ValidationScriptsPartial")   
+}
+

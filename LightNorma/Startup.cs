@@ -58,7 +58,7 @@ namespace LightNorma
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=PublicNorma}/{action=CreateEdit}/{id?}");
+                    pattern: "{controller=IndustNorma}/{action=CreateEdit}/{id?}");
             });
         }
     }

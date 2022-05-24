@@ -55,7 +55,7 @@ namespace LightNorma.Controllers
             ViewBag.Users = users;
 
             //data for _GetIndexPartial
-            var extractILN = db.PublicLightNormaSets.Include(p => p.SP52PublicWorkRank)
+            var extractPLN = db.PublicLightNormaSets.Include(p => p.SP52PublicWorkRank)
                                                     .Include(p => p.SP52PublicWorkSubRank)
                                                     .Include(p => p.HorizontalIlluminance)
                                                     .Include(p => p.CylindricalIlluminance)
@@ -65,13 +65,13 @@ namespace LightNorma.Controllers
 
             if (addUpdateSwitcher)
             {
-                ViewBag.DbAboveId = extractILN.ToList();
+                ViewBag.DbAboveId = extractPLN.ToList();
             }
             else
             {
-                ViewBag.DbAboveId = extractILN.Where(r => r.Id < id).ToList();
+                ViewBag.DbAboveId = extractPLN.Where(r => r.Id < id).ToList();
             }
-            ViewBag.DbBelowId = extractILN.Where(r => r.Id > id).ToList();
+            ViewBag.DbBelowId = extractPLN.Where(r => r.Id > id).ToList();
 
             //_GetIndexPartial: Lists for adding Note-marker (** or ***) to some data
             List<bool> isTwoStarNote = new List<bool>();            
