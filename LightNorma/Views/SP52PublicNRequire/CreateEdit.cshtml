@@ -1,11 +1,11 @@
-﻿@model LightNorma.Models.PublicLightNormaSet
+﻿@model LightNorma.Models.SP52PublicLightRequirement
 @{
     ViewData["Title"] = "СП52.133300.2016";
     ViewBag.HasTableHeader = true;
     ViewBag.ShouldSomeDataMerge = false;
 }
 @{ViewBag.StartTableNumber = 0;}
-@await Html.PartialAsync("_GetIndexPartial", ViewBag.DbAboveId as List<LightNorma.Models.PublicLightNormaSet>)
+@await Html.PartialAsync("_GetIndexPartial", ViewBag.DbAboveId as List<LightNorma.Models.SP52PublicLightRequirement>)
 
 
 
@@ -161,7 +161,7 @@
                     <input type="submit" value="Сохранить" class="btn-group" />
                 </div>
                 <div class="col-xl-2">                    
-                   <a href="~/PublicNorma/CreateEdit/#bottom">Отменить</a>
+                   <a href="~/SP52PublicNRequire/CreateEdit/#bottom">Отменить</a>
                 </div>
             </div>
         </div>
@@ -173,7 +173,7 @@
     ViewBag.StartTableNumber = (ViewBag.DbAboveId).Count+1;
     ViewBag.HasTableHeader = false;
 }
-@await Html.PartialAsync("_GetIndexPartial", ViewBag.DbBelowId as List<LightNorma.Models.PublicLightNormaSet>)
+@await Html.PartialAsync("_GetIndexPartial", ViewBag.DbBelowId as List<LightNorma.Models.SP52PublicLightRequirement>)
 
 <a name="bottom"></a>
 

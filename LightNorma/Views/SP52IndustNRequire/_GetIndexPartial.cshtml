@@ -1,4 +1,4 @@
-﻿@model IEnumerable<LightNorma.Models.IndustrialLightNormaSet>
+﻿@model IEnumerable<LightNorma.Models.SP52IndustrialLightRequirement>
 
 <table class="table table-bordered">
     @if (ViewBag.HasTableHeader)
@@ -44,7 +44,7 @@
         @foreach (var ilns in Model)
         {
             <tr id=@ilns.Id.ToString()>
-                <td>@Html.ActionLink("Edit", "CreateEdit", "IndustNorma", null, null, "CreateEditForm", new { id = @ilns.Id }, null)</td>
+                <td>@Html.ActionLink("Edit", "CreateEdit", "SP52IndustNRequire", null, null, "CreateEditForm", new { id = @ilns.Id }, null)</td>
                 <td>@Html.ActionLink("Del", "Delete", null, null, null, null, new { id = ilns.Id }, new { id = "DeleteLink" })</td>
                 <td>@(ilnsIndex+1)</td>
                 <td>@ilns.EyeAccuracy</td>

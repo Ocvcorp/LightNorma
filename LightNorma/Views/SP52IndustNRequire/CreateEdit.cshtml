@@ -1,10 +1,10 @@
-﻿@model LightNorma.Models.IndustrialLightNormaSet
+﻿@model LightNorma.Models.SP52IndustrialLightRequirement
 @{
     ViewData["Title"] = "СП52.133300.2016";
     ViewBag.HasTableHeader = true;
 }
 @{ViewBag.StartTableNumber = 0;}
-@await Html.PartialAsync("_GetIndexPartial", ViewBag.DbAboveId as List<LightNorma.Models.IndustrialLightNormaSet>)
+@await Html.PartialAsync("_GetIndexPartial", ViewBag.DbAboveId as List<LightNorma.Models.SP52IndustrialLightRequirement>)
 
 @using (Html.BeginForm(FormMethod.Post, new { id = "CreateEditForm" }))
 {
@@ -149,7 +149,7 @@
                     <input type="submit" value="Сохранить" class="btn-group" />
                 </div>
                 <div class="col-xl-2">                    
-                    <a href="~/IndustNorma/CreateEdit/#bottom">Отменить</a>
+                    <a href="~/SP52IndustNRequire/CreateEdit/#bottom">Отменить</a>
                 </div>
             </div>
         </div>
@@ -160,7 +160,7 @@
     ViewBag.StartTableNumber = (ViewBag.DbAboveId).Count+1;
     ViewBag.HasTableHeader = false;
 }
-@await Html.PartialAsync("_GetIndexPartial", ViewBag.DbBelowId as List<LightNorma.Models.IndustrialLightNormaSet>)
+@await Html.PartialAsync("_GetIndexPartial", ViewBag.DbBelowId as List<LightNorma.Models.SP52IndustrialLightRequirement>)
 
 <a name="bottom"></a>
 

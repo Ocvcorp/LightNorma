@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using LightNorma.Models;
-using LightNorma.Models.SP52Constants;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,12 +10,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace LightNorma.Controllers
 {
     
-    public class PublicNormaController : Controller
+    public class SP52PublicNRequireController : Controller
     {
         LightNormaDBContext db;         
         static bool addUpdateSwitcher; //switching between Add/Update methods
                
-        public PublicNormaController(LightNormaDBContext context)
+        public SP52PublicNRequireController(LightNormaDBContext context)
         {
             db = context;
         }
@@ -25,8 +24,8 @@ namespace LightNorma.Controllers
             
             addUpdateSwitcher = (id == null); //true -add, false - update database
                 
-            id ??= db.PublicLightNormaSets.OrderBy(p => p.Id).LastOrDefault().Id;
-            PublicLightNormaSet publicLightNormaSet = db.PublicLightNormaSets.Find(id);
+            id ??= db.SP52PublicLightRequirements.OrderBy(p => p.Id).LastOrDefault().Id;
+            SP52PublicLightRequirement publicLightNormaSet = db.SP52PublicLightRequirements.Find(id);
             
             //data for Create/Edit form
             SelectList sP52PublicWorkRanks = new SelectList(db.sp52publicWorkRanks, "Id", "Value");
@@ -41,8 +40,8 @@ namespace LightNorma.Controllers
             SelectList cylindricalIlluminances = new SelectList(db.sp52Illuminances, "Id", "Value");
             ViewBag.CylindricalIlluminances = cylindricalIlluminances;
 
-            var pLNNotes = db.sP52PublicLightNormaNotes.Include(n => n.publicLightNormaSets)
-                                                    .Where(n => n.publicLightNormaSets.Any(p => p.Id == publicLightNormaSet.Id))
+            var pLNNotes = db.sP52PublicLightNormaNotes.Include(n => n.sp52PublicLightRequirements)
+                                                    .Where(n => n.sp52PublicLightRequirements.Any(p => p.Id == publicLightNormaSet.Id))
                                                     .ToList();
             var selectedPLNNotes = pLNNotes.Select(n => n.Id).ToList();
             MultiSelectList sp52PublicLightNormaNotes = new MultiSelectList(db.sP52PublicLightNormaNotes, "Id", "Designation", selectedPLNNotes);
@@ -55,7 +54,7 @@ namespace LightNorma.Controllers
             ViewBag.Users = users;
 
             //data for _GetIndexPartial
-            var extractPLN = db.PublicLightNormaSets.Include(p => p.SP52PublicWorkRank)
+            var extractPLN = db.SP52PublicLightRequirements.Include(p => p.SP52PublicWorkRank)
                                                     .Include(p => p.SP52PublicWorkSubRank)
                                                     .Include(p => p.HorizontalIlluminance)
                                                     .Include(p => p.CylindricalIlluminance)
@@ -76,10 +75,10 @@ namespace LightNorma.Controllers
             //_GetIndexPartial: Lists for adding Note-marker (** or ***) to some data
             List<bool> isTwoStarNote = new List<bool>();            
             List<bool> isThreeStarNote = new List<bool>();
-            foreach (var item in db.PublicLightNormaSets)
+            foreach (var item in db.SP52PublicLightRequirements)
             {
-                pLNNotes = db.sP52PublicLightNormaNotes.Include(n => n.publicLightNormaSets)
-                                                    .Where(n => n.publicLightNormaSets.Any(p => p.Id == item.Id))
+                pLNNotes = db.sP52PublicLightNormaNotes.Include(n => n.sp52PublicLightRequirements)
+                                                    .Where(n => n.sp52PublicLightRequirements.Any(p => p.Id == item.Id))
                                                     .ToList();
                 selectedPLNNotes = pLNNotes.Select(n => n.Id).ToList();
                 if (selectedPLNNotes.IndexOf(2) != -1)
@@ -109,7 +108,7 @@ namespace LightNorma.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult CreateEdit(PublicLightNormaSet publicLightNormaSet)
+        public IActionResult CreateEdit(SP52PublicLightRequirement publicLightNormaSet)
         {            
            if (ModelState.IsValid)
            {
@@ -117,7 +116,7 @@ namespace LightNorma.Controllers
                     if (!addUpdateSwitcher)//may be there are old nodes 
                     {
                         //Removing old notes from linking table
-                        var notes2Remove = db.publicLightNormaSetSP52PublicLightNormaNotes
+                        var notes2Remove = db.sP52PublicLightRequirementSP52PublicLightNormaNotes
                                         .Where(x => x.publicLightNormaSetsId == publicLightNormaSet.Id)
                                         .ToList();
                         if (notes2Remove != null)
@@ -137,7 +136,7 @@ namespace LightNorma.Controllers
                 //Switch database actions
                 if (addUpdateSwitcher)//Add case 
                 {                    
-                    db.PublicLightNormaSets.Add(publicLightNormaSet);                   
+                    db.SP52PublicLightRequirements.Add(publicLightNormaSet);                   
                 }
                 else //Update case
                 {                    
@@ -145,16 +144,16 @@ namespace LightNorma.Controllers
                 }
                 db.SaveChanges();                   
            }           
-           return Redirect("~/PublicNorma/CreateEdit/#CreateEditForm"); 
+           return Redirect("~/SP52PublicNRequire/CreateEdit/#CreateEditForm"); 
             
         }
         
         public IActionResult Delete(int? id)
         {
-            PublicLightNormaSet plns = db.PublicLightNormaSets.Find(id);
-            db.PublicLightNormaSets.Remove(plns);
+            SP52PublicLightRequirement plns = db.SP52PublicLightRequirements.Find(id);
+            db.SP52PublicLightRequirements.Remove(plns);
             db.SaveChanges();
-            return Redirect("~/PublicNorma/CreateEdit/#CreateEditForm");
+            return Redirect("~/SP52PublicNRequire/CreateEdit/#CreateEditForm");
         }
     }
 }

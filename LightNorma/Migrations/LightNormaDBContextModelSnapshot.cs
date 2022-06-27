@@ -106,7 +106,7 @@ namespace LightNorma.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("IndustrialLightNormaSets");
+                    b.ToTable("SP52IndustrialLightRequirements");
                 });
 
             modelBuilder.Entity("LightNorma.Models.LightReglament", b =>
@@ -125,7 +125,7 @@ namespace LightNorma.Migrations
                     b.ToTable("LightReglaments");
                 });
 
-            modelBuilder.Entity("LightNorma.Models.PublicLightNormaSet", b =>
+            modelBuilder.Entity("LightNorma.Models.SP52PublicLightRequirement", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -195,7 +195,7 @@ namespace LightNorma.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("PublicLightNormaSets");
+                    b.ToTable("SP52PublicLightNormaSets");
                 });
 
             modelBuilder.Entity("LightNorma.Models.SP52Constants.PublicLightNormaSetSP52PublicLightNormaNote", b =>
@@ -210,7 +210,7 @@ namespace LightNorma.Migrations
 
                     b.HasIndex("publicLightNormaSetsId");
 
-                    b.ToTable("publicLightNormaSetSP52PublicLightNormaNotes");
+                    b.ToTable("sP52PublicLightRequirementSP52PublicLightNormaNotes");
                 });
 
             modelBuilder.Entity("LightNorma.Models.SP52Constants.SP52BackgroundCharacteristic", b =>
@@ -515,7 +515,7 @@ namespace LightNorma.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("LightNorma.Models.PublicLightNormaSet", b =>
+            modelBuilder.Entity("LightNorma.Models.SP52PublicLightRequirement", b =>
                 {
                     b.HasOne("LightNorma.Models.SP52Constants.SP52Illuminance", "CylindricalIlluminance")
                         .WithMany()
@@ -566,13 +566,13 @@ namespace LightNorma.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("LightNorma.Models.PublicLightNormaSet", "PublicLightNormaSet")
+                    b.HasOne("LightNorma.Models.SP52PublicLightRequirement", "SP52PublicLightRequirement")
                         .WithMany()
                         .HasForeignKey("publicLightNormaSetsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("PublicLightNormaSet");
+                    b.Navigation("SP52PublicLightRequirement");
 
                     b.Navigation("SP52PublicLightNormaNote");
                 });

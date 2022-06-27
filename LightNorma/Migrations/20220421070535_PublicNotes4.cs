@@ -55,7 +55,7 @@ namespace LightNorma.Migrations
                 name: "FK_pubLightNSetNotes_PublicLightNormaSets_PublicLightNormaSetId",
                 table: "pubLightNSetNotes",
                 column: "PublicLightNormaSetId",
-                principalTable: "PublicLightNormaSets",
+                principalTable: "SP52PublicLightRequirements",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
 
@@ -120,7 +120,7 @@ namespace LightNorma.Migrations
                 name: "FK_pubLightNSetNotes_PublicLightNormaSets_PublicLightNormaSetId",
                 table: "pubLightNSetNotes",
                 column: "PublicLightNormaSetId",
-                principalTable: "PublicLightNormaSets",
+                principalTable: "SP52PublicLightRequirements",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
 

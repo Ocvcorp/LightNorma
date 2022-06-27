@@ -8,14 +8,14 @@ namespace LightNorma.Migrations
         {
             migrationBuilder.DropColumn(
                 name: "SP52PublicLightNormaNoteId",
-                table: "PublicLightNormaSets");
+                table: "SP52PublicLightRequirements");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<int>(
                 name: "SP52PublicLightNormaNoteId",
-                table: "PublicLightNormaSets",
+                table: "SP52PublicLightRequirements",
                 type: "int",
                 nullable: true);
         }

@@ -22,7 +22,7 @@ namespace LightNorma.Migrations
                     table.ForeignKey(
                         name: "FK_PublicLightNormaSetSP52PublicLightNormaNote_PublicLightNormaSets_publicLightNormaSetsId",
                         column: x => x.publicLightNormaSetsId,
-                        principalTable: "PublicLightNormaSets",
+                        principalTable: "SP52PublicLightRequirements",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -57,7 +57,7 @@ namespace LightNorma.Migrations
                     table.ForeignKey(
                         name: "FK_pubLightNSetNotes_PublicLightNormaSets_PublicLightNormaSetId",
                         column: x => x.PublicLightNormaSetId,
-                        principalTable: "PublicLightNormaSets",
+                        principalTable: "SP52PublicLightRequirements",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(

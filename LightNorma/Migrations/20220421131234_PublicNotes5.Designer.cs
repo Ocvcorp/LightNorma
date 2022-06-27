@@ -104,7 +104,7 @@ namespace LightNorma.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("IndustrialLightNormaSets");
+                    b.ToTable("SP52IndustrialLightRequirements");
                 });
 
             modelBuilder.Entity("LightNorma.Models.LightReglament", b =>
@@ -122,7 +122,7 @@ namespace LightNorma.Migrations
                     b.ToTable("LightReglaments");
                 });
 
-            modelBuilder.Entity("LightNorma.Models.PublicLightNormaSet", b =>
+            modelBuilder.Entity("LightNorma.Models.SP52PublicLightRequirement", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -191,7 +191,7 @@ namespace LightNorma.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("PublicLightNormaSets");
+                    b.ToTable("SP52PublicLightNormaSets");
                 });
 
             modelBuilder.Entity("LightNorma.Models.SP52Constants.SP52BackgroundCharacteristic", b =>
@@ -496,7 +496,7 @@ namespace LightNorma.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("LightNorma.Models.PublicLightNormaSet", b =>
+            modelBuilder.Entity("LightNorma.Models.SP52PublicLightRequirement", b =>
                 {
                     b.HasOne("LightNorma.Models.SP52Constants.SP52Illuminance", "CylindricalIlluminance")
                         .WithMany()
@@ -547,7 +547,7 @@ namespace LightNorma.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("LightNorma.Models.PublicLightNormaSet", null)
+                    b.HasOne("LightNorma.Models.SP52PublicLightRequirement", null)
                         .WithMany()
                         .HasForeignKey("publicLightNormaSetsId")
                         .OnDelete(DeleteBehavior.Cascade)

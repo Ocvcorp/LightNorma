@@ -8,11 +8,11 @@ namespace LightNorma.Migrations
         {
             migrationBuilder.DropIndex(
                 name: "IX_PublicLightNormaSets_SP52PublicLightNormaNoteId",
-                table: "PublicLightNormaSets");
+                table: "SP52PublicLightRequirements");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PublicLightNormaSets_SP52PublicLightNormaNoteId",
-                table: "PublicLightNormaSets",
+                table: "SP52PublicLightRequirements",
                 column: "SP52PublicLightNormaNoteId");
         }
 
@@ -20,11 +20,11 @@ namespace LightNorma.Migrations
         {
             migrationBuilder.DropIndex(
                 name: "IX_PublicLightNormaSets_SP52PublicLightNormaNoteId",
-                table: "PublicLightNormaSets");
+                table: "SP52PublicLightRequirements");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PublicLightNormaSets_SP52PublicLightNormaNoteId",
-                table: "PublicLightNormaSets",
+                table: "SP52PublicLightRequirements",
                 column: "SP52PublicLightNormaNoteId",
                 unique: true,
                 filter: "[SP52PublicLightNormaNoteId] IS NOT NULL");

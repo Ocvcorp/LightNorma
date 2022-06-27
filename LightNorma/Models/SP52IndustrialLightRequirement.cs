@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LightNorma.Models
 {
-    public class IndustrialLightNormaSet
+    public class SP52IndustrialLightRequirement
     {
         public int Id { get; set; }
 

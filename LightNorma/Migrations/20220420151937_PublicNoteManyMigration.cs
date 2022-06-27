@@ -8,20 +8,20 @@ namespace LightNorma.Migrations
         {
             migrationBuilder.AddColumn<int>(
                 name: "SP52PublicLightNormaNoteId",
-                table: "PublicLightNormaSets",
+                table: "SP52PublicLightRequirements",
                 type: "int",
                 nullable: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_PublicLightNormaSets_SP52PublicLightNormaNoteId",
-                table: "PublicLightNormaSets",
+                table: "SP52PublicLightRequirements",
                 column: "SP52PublicLightNormaNoteId",
                 unique: true,
                 filter: "[SP52PublicLightNormaNoteId] IS NOT NULL");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_PublicLightNormaSets_sP52PublicLightNormaNotes_SP52PublicLightNormaNoteId",
-                table: "PublicLightNormaSets",
+                table: "SP52PublicLightRequirements",
                 column: "SP52PublicLightNormaNoteId",
                 principalTable: "sP52PublicLightNormaNotes",
                 principalColumn: "Id",
@@ -32,15 +32,15 @@ namespace LightNorma.Migrations
         {
             migrationBuilder.DropForeignKey(
                 name: "FK_PublicLightNormaSets_sP52PublicLightNormaNotes_SP52PublicLightNormaNoteId",
-                table: "PublicLightNormaSets");
+                table: "SP52PublicLightRequirements");
 
             migrationBuilder.DropIndex(
                 name: "IX_PublicLightNormaSets_SP52PublicLightNormaNoteId",
-                table: "PublicLightNormaSets");
+                table: "SP52PublicLightRequirements");
 
             migrationBuilder.DropColumn(
                 name: "SP52PublicLightNormaNoteId",
-                table: "PublicLightNormaSets");
+                table: "SP52PublicLightRequirements");
         }
     }
 }

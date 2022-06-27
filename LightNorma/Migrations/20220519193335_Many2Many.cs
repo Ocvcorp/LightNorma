@@ -12,7 +12,7 @@ namespace LightNorma.Migrations
                 name: "PublicLightNormaSetSP52PublicLightNormaNote");
 
             migrationBuilder.CreateTable(
-                name: "publicLightNormaSetSP52PublicLightNormaNotes",
+                name: "sP52PublicLightRequirementSP52PublicLightNormaNotes",
                 columns: table => new
                 {
                     SP52PublicLightNormaNotesId = table.Column<int>(type: "int", nullable: false),
@@ -24,7 +24,7 @@ namespace LightNorma.Migrations
                     table.ForeignKey(
                         name: "FK_publicLightNormaSetSP52PublicLightNormaNotes_PublicLightNormaSets_publicLightNormaSetsId",
                         column: x => x.publicLightNormaSetsId,
-                        principalTable: "PublicLightNormaSets",
+                        principalTable: "SP52PublicLightRequirements",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -37,14 +37,14 @@ namespace LightNorma.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_publicLightNormaSetSP52PublicLightNormaNotes_publicLightNormaSetsId",
-                table: "publicLightNormaSetSP52PublicLightNormaNotes",
+                table: "sP52PublicLightRequirementSP52PublicLightNormaNotes",
                 column: "publicLightNormaSetsId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "publicLightNormaSetSP52PublicLightNormaNotes");
+                name: "sP52PublicLightRequirementSP52PublicLightNormaNotes");
 
             migrationBuilder.CreateTable(
                 name: "PublicLightNormaSetSP52PublicLightNormaNote",
@@ -59,7 +59,7 @@ namespace LightNorma.Migrations
                     table.ForeignKey(
                         name: "FK_PublicLightNormaSetSP52PublicLightNormaNote_PublicLightNormaSets_publicLightNormaSetsId",
                         column: x => x.publicLightNormaSetsId,
-                        principalTable: "PublicLightNormaSets",
+                        principalTable: "SP52PublicLightRequirements",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(

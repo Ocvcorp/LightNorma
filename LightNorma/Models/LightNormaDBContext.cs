@@ -24,9 +24,9 @@ namespace LightNorma.Models
         public DbSet<SP52Constants.SP52RoadObjectClass> sp52roadObjectClasses { get; set; }
         public DbSet<SP52Constants.SP52TonnelClass> sp52tonnelClasses { get; set; }
         public DbSet<SP52Constants.SP52PublicLightNormaNote> sP52PublicLightNormaNotes { get; set; } 
-        public DbSet<SP52Constants.PublicLightNormaSetSP52PublicLightNormaNote> publicLightNormaSetSP52PublicLightNormaNotes { get; set; }
-        public DbSet<IndustrialLightNormaSet> IndustrialLightNormaSets { get; set; }
-        public DbSet<PublicLightNormaSet> PublicLightNormaSets { get; set; }
+        public DbSet<SP52Constants.SP52PublicLightRequirementSP52PublicLightNormaNote> sP52PublicLightRequirementSP52PublicLightNormaNotes { get; set; }
+        public DbSet<SP52IndustrialLightRequirement> SP52IndustrialLightRequirements { get; set; }
+        public DbSet<SP52PublicLightRequirement> SP52PublicLightRequirements { get; set; }
 
         public LightNormaDBContext(DbContextOptions<LightNormaDBContext> options)
             :base(options)
@@ -35,11 +35,11 @@ namespace LightNorma.Models
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<PublicLightNormaSet>().HasMany(x => x.SP52PublicLightNormaNotes)
-                .WithMany(x => x.publicLightNormaSets)
-                .UsingEntity<SP52Constants.PublicLightNormaSetSP52PublicLightNormaNote>(
+            modelBuilder.Entity<SP52PublicLightRequirement>().HasMany(x => x.SP52PublicLightNormaNotes)
+                .WithMany(x => x.sp52PublicLightRequirements)
+                .UsingEntity<SP52Constants.SP52PublicLightRequirementSP52PublicLightNormaNote>(
                 x => x.HasOne(x => x.SP52PublicLightNormaNote).WithMany().HasForeignKey(x => x.SP52PublicLightNormaNotesId),
-                x => x.HasOne(x => x.PublicLightNormaSet)
+                x => x.HasOne(x => x.SP52PublicLightRequirement)
                 .WithMany().HasForeignKey(x => x.publicLightNormaSetsId));
         }
 

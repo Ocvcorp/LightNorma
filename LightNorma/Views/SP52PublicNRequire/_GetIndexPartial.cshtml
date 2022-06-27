@@ -1,4 +1,4 @@
-﻿@model IEnumerable<LightNorma.Models.PublicLightNormaSet>
+﻿@model IEnumerable<LightNorma.Models.SP52PublicLightRequirement>
 
 <table class="table table-bordered">
     @if (ViewBag.HasTableHeader)
@@ -38,7 +38,7 @@
         {
                       
             <tr id=@((plns.Id).ToString())>
-                <td> @Html.ActionLink("Edit", "CreateEdit", "PublicNorma", null, null, "CreateEditForm", new { id = @plns.Id }, null)</td>
+                <td> @Html.ActionLink("Edit", "CreateEdit", "SP52PublicNRequire", null, null, "CreateEditForm", new { id = @plns.Id }, null)</td>
                 <td> @Html.ActionLink("Del", "Delete", null, null, null, null, new { id = @plns.Id }, new { id = "DeleteLink" })</td>
 
                 <td> @((plnsIndex+1).ToString())</td>
@@ -156,7 +156,7 @@
         string eyePredZ = "Общее ориентирование в зонах передвижения";
 
         int plnsIndex=0;
-        var plnsArray = Model.ToArray<PublicLightNormaSet>();
+        var plnsArray = Model.ToArray<SP52PublicLightRequirement>();
         for (int i=0; i< plnsArray.Length+4; i++)
         {
         @if (@i==0)
@@ -219,7 +219,7 @@
             continue;
         }
         <tr id=plnsArray[@plnsIndex].Id.ToString()>
-        <td> @Html.ActionLink("Edit", "Edit", "PublicNorma", null, null, "editFormPlace", new { id = plnsArray[@plnsIndex].Id }, null)</td>
+        <td> @Html.ActionLink("Edit", "Edit", "SP52PublicNRequire", null, null, "editFormPlace", new { id = plnsArray[@plnsIndex].Id }, null)</td>
         <td> @Html.ActionLink("Del", "Delete", null, null, null, null, new { id = plnsArray[@plnsIndex].Id }, new { id = "DeleteLink" })</td>
         
         <td> @((plnsIndex+1).ToString())</td>

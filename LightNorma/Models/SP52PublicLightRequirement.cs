@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LightNorma.Models
 {
-    public class PublicLightNormaSet
+    public class SP52PublicLightRequirement
     {
         public int Id { get; set; }
 

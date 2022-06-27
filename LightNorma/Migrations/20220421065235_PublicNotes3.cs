@@ -8,15 +8,15 @@ namespace LightNorma.Migrations
         {
             migrationBuilder.DropForeignKey(
                 name: "FK_PublicLightNormaSets_sP52PublicLightNormaNotes_SP52PublicLightNormaNoteId",
-                table: "PublicLightNormaSets");
+                table: "SP52PublicLightRequirements");
 
             migrationBuilder.DropIndex(
                 name: "IX_PublicLightNormaSets_SP52PublicLightNormaNoteId",
-                table: "PublicLightNormaSets");
+                table: "SP52PublicLightRequirements");
 
             migrationBuilder.DropColumn(
                 name: "SP52PublicLightNormaNoteId",
-                table: "PublicLightNormaSets");
+                table: "SP52PublicLightRequirements");
 
             migrationBuilder.CreateTable(
                 name: "pubLightNSetNotes",
@@ -33,7 +33,7 @@ namespace LightNorma.Migrations
                     table.ForeignKey(
                         name: "FK_pubLightNSetNotes_PublicLightNormaSets_PublicLightNormaSetId",
                         column: x => x.PublicLightNormaSetId,
-                        principalTable: "PublicLightNormaSets",
+                        principalTable: "SP52PublicLightRequirements",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -62,18 +62,18 @@ namespace LightNorma.Migrations
 
             migrationBuilder.AddColumn<int>(
                 name: "SP52PublicLightNormaNoteId",
-                table: "PublicLightNormaSets",
+                table: "SP52PublicLightRequirements",
                 type: "int",
                 nullable: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_PublicLightNormaSets_SP52PublicLightNormaNoteId",
-                table: "PublicLightNormaSets",
+                table: "SP52PublicLightRequirements",
                 column: "SP52PublicLightNormaNoteId");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_PublicLightNormaSets_sP52PublicLightNormaNotes_SP52PublicLightNormaNoteId",
-                table: "PublicLightNormaSets",
+                table: "SP52PublicLightRequirements",
                 column: "SP52PublicLightNormaNoteId",
                 principalTable: "sP52PublicLightNormaNotes",
                 principalColumn: "Id",

@@ -19,7 +19,7 @@ namespace LightNorma.Controllers
         }
         public IActionResult Index()
         {
-            var setsILN = db.IndustrialLightNormaSets.Include(p => p.SP52IndustrialWorkRank)
+            var setsILN = db.SP52IndustrialLightRequirements.Include(p => p.SP52IndustrialWorkRank)
                                                     .Include(p => p.SP52IndustrialWorkSubRank)
                                                     .Include(p => p.SP52BackgroundContrast)
                                                     .Include(p => p.SP52BackgroundCharacteristic)

@@ -10,7 +10,7 @@ namespace LightNorma.Models.SP52Constants
         public int Id { get; set; }
         public string Designation { get; set; }
         public string Description { get; set; }
-        public List<Models.PublicLightNormaSet> publicLightNormaSets { get; set; } 
+        public List<Models.SP52PublicLightRequirement> sp52PublicLightRequirements { get; set; } 
       
     }
 }

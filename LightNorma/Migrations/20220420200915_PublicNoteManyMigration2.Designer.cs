@@ -104,7 +104,7 @@ namespace LightNorma.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("IndustrialLightNormaSets");
+                    b.ToTable("SP52IndustrialLightRequirements");
                 });
 
             modelBuilder.Entity("LightNorma.Models.LightReglament", b =>
@@ -122,7 +122,7 @@ namespace LightNorma.Migrations
                     b.ToTable("LightReglaments");
                 });
 
-            modelBuilder.Entity("LightNorma.Models.PublicLightNormaSet", b =>
+            modelBuilder.Entity("LightNorma.Models.SP52PublicLightRequirement", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -196,7 +196,7 @@ namespace LightNorma.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("PublicLightNormaSets");
+                    b.ToTable("SP52PublicLightNormaSets");
                 });
 
             modelBuilder.Entity("LightNorma.Models.SP52Constants.SP52BackgroundCharacteristic", b =>
@@ -486,7 +486,7 @@ namespace LightNorma.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("LightNorma.Models.PublicLightNormaSet", b =>
+            modelBuilder.Entity("LightNorma.Models.SP52PublicLightRequirement", b =>
                 {
                     b.HasOne("LightNorma.Models.SP52Constants.SP52Illuminance", "CylindricalIlluminance")
                         .WithMany()
@@ -503,7 +503,7 @@ namespace LightNorma.Migrations
                         .HasForeignKey("LightReglamentId");
 
                     b.HasOne("LightNorma.Models.SP52Constants.SP52PublicLightNormaNote", null)
-                        .WithMany("publicLightNormaSets")
+                        .WithMany("sp52PublicLightRequirements")
                         .HasForeignKey("SP52PublicLightNormaNoteId");
 
                     b.HasOne("LightNorma.Models.SP52Constants.SP52PublicWorkRank", "SP52PublicWorkRank")
@@ -535,7 +535,7 @@ namespace LightNorma.Migrations
 
             modelBuilder.Entity("LightNorma.Models.SP52Constants.SP52PublicLightNormaNote", b =>
                 {
-                    b.Navigation("publicLightNormaSets");
+                    b.Navigation("sp52PublicLightRequirements");
                 });
 #pragma warning restore 612, 618
         }

@@ -9,19 +9,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LightNorma.Controllers
 {
-    public class IndustNormaController : Controller
+    public class SP52IndustNRequireController : Controller
     {
         LightNormaDBContext db;
         static bool addUpdateSwitcher; //switching between Add/Update methods
-        public IndustNormaController(LightNormaDBContext context)
+        public SP52IndustNRequireController(LightNormaDBContext context)
         {
             db = context;
         }
         public IActionResult CreateEdit(int? id)
         {
             addUpdateSwitcher = (id == null); //true -add, false - update database
-            id ??= db.IndustrialLightNormaSets.OrderBy(i => i.Id).LastOrDefault().Id;
-            IndustrialLightNormaSet industrialLightNormaSet = db.IndustrialLightNormaSets.Find(id);
+            id ??= db.SP52IndustrialLightRequirements.OrderBy(i => i.Id).LastOrDefault().Id;
+            SP52IndustrialLightRequirement industrialLightNormaSet = db.SP52IndustrialLightRequirements.Find(id);
 
             //data for Create/Edit form
             SelectList sP52IndustrialWorkRanks = new SelectList(db.sp52industrialWorkRanks, "Id", "Value", industrialLightNormaSet.SP52IndustrialWorkRankId);
@@ -46,7 +46,7 @@ namespace LightNorma.Controllers
             ViewBag.CommonIlluminances = CommonIlluminances;
 
             //data for _GetIndexPartial
-            var extractILN = db.IndustrialLightNormaSets.Include(p => p.SP52IndustrialWorkRank)
+            var extractILN = db.SP52IndustrialLightRequirements.Include(p => p.SP52IndustrialWorkRank)
                                                      .Include(p => p.SP52IndustrialWorkSubRank)
                                                      .Include(p => p.SP52BackgroundContrast)
                                                      .Include(p => p.SP52BackgroundCharacteristic)
@@ -67,14 +67,14 @@ namespace LightNorma.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult CreateEdit(IndustrialLightNormaSet industrialLightNormaSet)
+        public IActionResult CreateEdit(SP52IndustrialLightRequirement industrialLightNormaSet)
         {
             if (ModelState.IsValid)
             {
                 //Switch database actions
                 if (addUpdateSwitcher)//Add case 
                 {
-                    db.IndustrialLightNormaSets.Add(industrialLightNormaSet);
+                    db.SP52IndustrialLightRequirements.Add(industrialLightNormaSet);
                 }
                 else //Update case
                 {
@@ -82,14 +82,14 @@ namespace LightNorma.Controllers
                 }
                 db.SaveChanges();
             }
-            return Redirect("~/IndustNorma/CreateEdit/#CreateEditForm");
+            return Redirect("~/SP52IndustNRequire/CreateEdit/#CreateEditForm");
         }     
         public IActionResult Delete(int? id)
         {
-            IndustrialLightNormaSet ilns = db.IndustrialLightNormaSets.Find(id);
-            db.IndustrialLightNormaSets.Remove(ilns);
+            SP52IndustrialLightRequirement ilns = db.SP52IndustrialLightRequirements.Find(id);
+            db.SP52IndustrialLightRequirements.Remove(ilns);
             db.SaveChanges();
-            return Redirect("~/IndustNorma/CreateEdit/#bottom");
+            return Redirect("~/SP52IndustNRequire/CreateEdit/#bottom");
         }
     }
 }

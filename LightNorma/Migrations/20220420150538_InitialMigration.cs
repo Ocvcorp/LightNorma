@@ -216,7 +216,7 @@ namespace LightNorma.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "IndustrialLightNormaSets",
+                name: "SP52IndustrialLightRequirements",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -300,7 +300,7 @@ namespace LightNorma.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PublicLightNormaSets",
+                name: "SP52PublicLightRequirements",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -365,87 +365,87 @@ namespace LightNorma.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_IndustrialLightNormaSets_CombinedCommonPartIlluminanceId",
-                table: "IndustrialLightNormaSets",
+                table: "SP52IndustrialLightRequirements",
                 column: "CombinedCommonPartIlluminanceId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_IndustrialLightNormaSets_CombinedTotalIlluminanceId",
-                table: "IndustrialLightNormaSets",
+                table: "SP52IndustrialLightRequirements",
                 column: "CombinedTotalIlluminanceId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_IndustrialLightNormaSets_CommonIlluminanceId",
-                table: "IndustrialLightNormaSets",
+                table: "SP52IndustrialLightRequirements",
                 column: "CommonIlluminanceId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_IndustrialLightNormaSets_LightReglamentId",
-                table: "IndustrialLightNormaSets",
+                table: "SP52IndustrialLightRequirements",
                 column: "LightReglamentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_IndustrialLightNormaSets_SP52BackgroundCharacteristicId",
-                table: "IndustrialLightNormaSets",
+                table: "SP52IndustrialLightRequirements",
                 column: "SP52BackgroundCharacteristicId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_IndustrialLightNormaSets_SP52BackgroundContrastId",
-                table: "IndustrialLightNormaSets",
+                table: "SP52IndustrialLightRequirements",
                 column: "SP52BackgroundContrastId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_IndustrialLightNormaSets_SP52IndustrialWorkRankId",
-                table: "IndustrialLightNormaSets",
+                table: "SP52IndustrialLightRequirements",
                 column: "SP52IndustrialWorkRankId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_IndustrialLightNormaSets_SP52IndustrialWorkSubRankId",
-                table: "IndustrialLightNormaSets",
+                table: "SP52IndustrialLightRequirements",
                 column: "SP52IndustrialWorkSubRankId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_IndustrialLightNormaSets_UserId",
-                table: "IndustrialLightNormaSets",
+                table: "SP52IndustrialLightRequirements",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PublicLightNormaSets_CylindricalIlluminanceId",
-                table: "PublicLightNormaSets",
+                table: "SP52PublicLightRequirements",
                 column: "CylindricalIlluminanceId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PublicLightNormaSets_HorizontalIlluminanceId",
-                table: "PublicLightNormaSets",
+                table: "SP52PublicLightRequirements",
                 column: "HorizontalIlluminanceId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PublicLightNormaSets_LightReglamentId",
-                table: "PublicLightNormaSets",
+                table: "SP52PublicLightRequirements",
                 column: "LightReglamentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PublicLightNormaSets_SP52PublicWorkRankId",
-                table: "PublicLightNormaSets",
+                table: "SP52PublicLightRequirements",
                 column: "SP52PublicWorkRankId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PublicLightNormaSets_SP52PublicWorkSubRankId",
-                table: "PublicLightNormaSets",
+                table: "SP52PublicLightRequirements",
                 column: "SP52PublicWorkSubRankId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PublicLightNormaSets_UserId",
-                table: "PublicLightNormaSets",
+                table: "SP52PublicLightRequirements",
                 column: "UserId");*/
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "IndustrialLightNormaSets");
+                name: "SP52IndustrialLightRequirements");
 
             migrationBuilder.DropTable(
-                name: "PublicLightNormaSets");
+                name: "SP52PublicLightRequirements");
 
             migrationBuilder.DropTable(
                 name: "sp52cityAreaCategories");
