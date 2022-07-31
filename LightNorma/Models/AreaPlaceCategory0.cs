@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 namespace LightNorma.Models
 {
-    public class AreaPlaceCategory
+    public class AreaPlaceCategory0
     {
         public int Id { get; set; }
         public string Name { get; set; }

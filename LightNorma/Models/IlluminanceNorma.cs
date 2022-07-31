@@ -20,18 +20,26 @@ namespace LightNorma.Models
         public string WorkRank { get; set; }                        
         [Display(Name = "Подразряд зрительной работы")]
         public string WorkSubRank { get; set; }
-        [Display(Name = "Освещенность рабочей поверхности в комбинированном режиме")]
-        public SP52Constants.SP52Illuminance CombinedIlluminance { get; set; }
-        public int? HorizontalIlluminanceId { get; set; }
+        [Display(Name = "Освещенность рабочей поверхности в комбинированном режиме от местного освещения")]
+        public SP52Constants.SP52Illuminance CombinedLocalIlluminance { get; set; }
+        public int? CombinedLocalIlluminanceId { get; set; }
+        [Display(Name = "Освещенность рабочей поверхности в комбинированном режиме от общего освещения")]
+        public SP52Constants.SP52Illuminance CombinedCommonIlluminance { get; set; }
+        public int? CombinedCommonIlluminanceId { get; set; }
+        [Display(Name = "Освещенность рабочей поверхности в режиме общего освещения")]
         [Required(ErrorMessage = "Не выбрана освещенность")]
+        public SP52Constants.SP52Illuminance CommonIlluminance { get; set; }        
+        public int? HorizontalIlluminanceId { get; set; }
         
-
+        
         [Display(Name = "Цилиндрическая освещенность")]
+
         public SP52Constants.SP52Illuminance CylindricalIlluminance { get; set; }
         public int? CylindricalIlluminanceId { get; set; }      
 
+
         [Display(Name = "Объединенный показатель UGR")]
-        public int? UGR { get; set; } //UGR - unified glare rationg        
+        public int? UGR { get; set; } //UGR - unified glare ratio        
         [Display(Name = "Коэфф пульсации")]
         public double? FF { get; set; } //FF - flicker factor
         [Display(Name = "КЕО при верхнем или комбинир освещении")]

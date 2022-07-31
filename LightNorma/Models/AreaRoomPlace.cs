@@ -8,6 +8,6 @@ namespace LightNorma.Models
         public string Description { get; set; }
         public int IlluminanceNormaId { get; set; }       
         public IlluminanceNorma IlluminanceNorma { get; set; }
-        public List<AreaPlaceCategory> AreaPlaceCategories { get; set; } = new List<AreaPlaceCategory>();
+        public List<AreaPlaceCategory0> AreaPlaceCategories { get; set; } = new List<AreaPlaceCategory0>();
     }
 }
