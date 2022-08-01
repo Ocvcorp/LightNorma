@@ -26,12 +26,10 @@ namespace LightNorma.Models
         [Display(Name = "Освещенность рабочей поверхности в комбинированном режиме от общего освещения")]
         public SP52Constants.SP52Illuminance CombinedCommonIlluminance { get; set; }
         public int? CombinedCommonIlluminanceId { get; set; }
-        [Display(Name = "Освещенность рабочей поверхности в режиме общего освещения")]
+        [Display(Name = "Освещенность рабочей поверхности")]//для внутреннего и наружного освещения 
         [Required(ErrorMessage = "Не выбрана освещенность")]
-        public SP52Constants.SP52Illuminance CommonIlluminance { get; set; }        
-        public int? HorizontalIlluminanceId { get; set; }
-        
-        
+        public SP52Constants.SP52Illuminance Illuminance { get; set; }        
+        public int? IlluminanceId { get; set; }
         [Display(Name = "Цилиндрическая освещенность")]
 
         public SP52Constants.SP52Illuminance CylindricalIlluminance { get; set; }
