@@ -13,8 +13,12 @@ namespace LightNorma.Models
         [Display(Name = "Помещения, рабочие места")]
         [Required(ErrorMessage = "Место(помещение) не определено")]
         public List<AreaRoomPlace> AreaRoomPlaces { get; set; } = new List<AreaRoomPlace>();
-        [Display(Name = "Плоскость нормирования, высота")]
-        public SP52Constants.SP52SemiSphIlluminancePlane SSphIlluminancePlane { get; set; }                
+        [Display(Name = "Плоскость нормирования")]
+        public SP52Constants.SP52SemiSphIlluminancePlane SSphIlluminancePlane { get; set; }
+        [Display(Name = "Высота")]
+        public double PlaneHeight { get; set; } = 0;
+        [Display(Name ="Доп инфо по плоскости")]
+        public string AdditionalPlaneInfo { get; set; }
         [Display(Name = "Разряд зрительной работы")] 
         [Required(ErrorMessage = "Не указан разряд")]
         public string WorkRank { get; set; }                        
@@ -26,18 +30,17 @@ namespace LightNorma.Models
         [Display(Name = "Освещенность рабочей поверхности в комбинированном режиме от общего освещения")]
         public SP52Constants.SP52Illuminance CombinedCommonIlluminance { get; set; }
         public int? CombinedCommonIlluminanceId { get; set; }
-        [Display(Name = "Освещенность рабочей поверхности")]//для внутреннего и наружного освещения 
+        [Display(Name = "Освещенность рабочей поверхности")]//for indoor/outdoor 
         [Required(ErrorMessage = "Не выбрана освещенность")]
         public SP52Constants.SP52Illuminance Illuminance { get; set; }        
         public int? IlluminanceId { get; set; }
         [Display(Name = "Цилиндрическая освещенность")]
-
         public SP52Constants.SP52Illuminance CylindricalIlluminance { get; set; }
-        public int? CylindricalIlluminanceId { get; set; }      
-
-
+        public int? CylindricalIlluminanceId { get; set; }
         [Display(Name = "Объединенный показатель UGR")]
-        public int? UGR { get; set; } //UGR - unified glare ratio        
+        public int? UGR { get; set; } //UGR - unified glare ratio for indoor
+        [Display(Name = "Объединенный показатель UGR")]
+        public int? Rg { get; set; } //RG (GR) - glare for outdoor 
         [Display(Name = "Коэфф пульсации")]
         public double? FF { get; set; } //FF - flicker factor
         [Display(Name = "КЕО при верхнем или комбинир освещении")]
