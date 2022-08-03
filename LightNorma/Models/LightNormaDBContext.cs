@@ -27,6 +27,10 @@ namespace LightNorma.Models
         public DbSet<SP52Constants.SP52PublicLightRequirementSP52PublicLightNormaNote> sP52PublicLightRequirementSP52PublicLightNormaNotes { get; set; }
         public DbSet<SP52IndustrialLightRequirement> SP52IndustrialLightRequirements { get; set; }
         public DbSet<SP52PublicLightRequirement> SP52PublicLightRequirements { get; set; }
+        public DbSet<IlluminanceNorma> IlluminanceNormas { get; set; }
+        public DbSet<SP52Constants.SP52SemiSphIlluminancePlane> SP52SemiSphIlluminancePlane { get; set; }
+        public DbSet<AreaPlaceCategory0> AreaPlaceCategories0 { get; set; }
+        public DbSet<AreaRoomPlace> AreaRoomPlaces { get; set; }
 
         public LightNormaDBContext(DbContextOptions<LightNormaDBContext> options)
             :base(options)
