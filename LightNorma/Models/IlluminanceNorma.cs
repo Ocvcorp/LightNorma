@@ -43,25 +43,24 @@ namespace LightNorma.Models
         public int? Rg { get; set; } //RG (GR) - glare for outdoor 
         [Display(Name = "Коэфф пульсации")]
         public double? FF { get; set; } //FF - flicker factor
-        [Display(Name = "КЕО при верхнем или комбинир освещении")]
+        [Display(Name = "Индекс цветопередачи")]
+        public double? Ra { get; set; } //Ra - CRI-color rendering index
+        [Display(Name = "Естественное освещение. КЕО при верхнем или комбинир освещении")]
         public double? NaturalTopOrCombinedDF { get; set; } //DF - Daylight factor
-        [Display(Name = "КЕО при боковом освещении")]
+        [Display(Name = "Естественное освещение. КЕО при боковом освещении")]
         public double? NaturalSideDF { get; set; }
-
+        [Display(Name = "Совмещенное освещение. КЕО при верхнем или комбинир освещении")]
+        public double? NatArtifTopOrCombinedDF { get; set; }
+        [Display(Name = "Совмещенное освещение. КЕО при боковом освещении")]
+        public double? NatArtifSideDF { get; set; }
         [Display(Name = "Примечание")]
-        public List<SP52Constants.SP52PublicLightNormaNote> SP52PublicLightNormaNotes { get; set; } = new();
         [NotMapped]
-        public int[] SP52PNSelectedNotes { get; set; } //for selecting in listbox
-
+        public string Notes { get; set; } //for selecting in listbox
         [Display(Name = "Пользователь")]
         public UserInfrastructure.User User { get; set; }
-        public int? UserId { get; set; }
-        
-
+        public int? UserId { get; set; }      
         [Display(Name = "Нормативный документ")]
         public LightReglament LightReglament { get; set; }
         public int? LightReglamentId { get; set; }
-        
-
     }
 }
