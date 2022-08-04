@@ -15,6 +15,7 @@ namespace LightNorma.Models
         public List<AreaRoomPlace> AreaRoomPlaces { get; set; } = new List<AreaRoomPlace>();
         [Display(Name = "Плоскость нормирования")]
         public SP52Constants.SP52SemiSphIlluminancePlane SSphIlluminancePlane { get; set; }
+        public string SphIlluminancePlaneId { get; set; }
         [Display(Name = "Высота")]
         public double PlaneHeight { get; set; } = 0;
         [Display(Name ="Доп инфо по плоскости")]
