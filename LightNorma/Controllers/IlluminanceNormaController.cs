@@ -27,7 +27,9 @@ namespace LightNorma.Controllers
                                                 .Include(p => p.LightReglament)
                                                 .Include(p => p.SSphIlluminancePlane)
                                                 .ToList();
-                            
+            var workRanksP = db.sp52publicWorkRanks.ToList();
+            var workRanksI = db.sp52industrialWorkRanks.ToList();
+            
             return View(extractILN);
         }
         public IActionResult CreateEdit(int? id)//method for admin and new norma's authors
