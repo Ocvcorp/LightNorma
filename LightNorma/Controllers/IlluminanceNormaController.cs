@@ -25,14 +25,16 @@ namespace LightNorma.Controllers
                                                 .Include(p => p.CylindricalIlluminance)
                                                 .Include(p => p.Illuminance)
                                                 .Include(p => p.LightReglament)
-                                                .Include(p => p.SSphIlluminancePlane)
+                                                .Include(p => p.SSphIlluminancePlane)                                   
                                                 .ToList();
-            var workRanksP = db.sp52publicWorkRanks.ToList();
-            var workRanksI = db.sp52industrialWorkRanks.ToList();
-            
+            ViewBag.PublicWorkRanks = db.sp52publicWorkRanks.ToList();
+            ViewBag.IndustrialWorkRanks = db.sp52industrialWorkRanks.ToList();
+            ViewBag.PublicWorkSubRanks = db.sp52publicWorkSubRanks.ToList();
+            ViewBag.IndustrialWorkSubRanks = db.sp52industrialWorkSubRanks.ToList();
+
             return View(extractILN);
         }
-        public IActionResult CreateEdit(int? id)//method for admin and new norma's authors
+        public IActionResult Create()
         {
             addUpdateSwitcher = (id == null); //true -add, false - update database
             id ??= db.SP52IndustrialLightRequirements.OrderBy(i => i.Id).LastOrDefault().Id;
