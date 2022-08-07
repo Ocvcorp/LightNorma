@@ -36,22 +36,21 @@ namespace LightNorma.Controllers
         }
         public IActionResult Create()
         {
-            addUpdateSwitcher = (id == null); //true -add, false - update database
-            id ??= db.SP52IndustrialLightRequirements.OrderBy(i => i.Id).LastOrDefault().Id;
-            SP52IndustrialLightRequirement industrialLightNormaSet = db.SP52IndustrialLightRequirements.Find(id);
 
-            //data for Create/Edit form
-            SelectList sP52IndustrialWorkRanks = new SelectList(db.sp52industrialWorkRanks, "Id", "Value", industrialLightNormaSet.SP52IndustrialWorkRankId);
+            MultiSelectList areaRoomPlaces = new MultiSelectList(db.sP52PublicLightNormaNotes, "Id", "Name");
+            ViewBag.AreaRoomPlaces = areaRoomPlaces;//здесь может чаще к списку мест добавляться новое, но старое тоже использоваться, надо подумать
+
+            SelectList sP52IndustrialWorkRanks = new SelectList(db.sp52industrialWorkRanks, "Id", "Value");
             ViewBag.SP52IndustrialWorkRanks = sP52IndustrialWorkRanks;
 
-            SelectList sP52IndustrialWorkSubRanks = new SelectList(db.sp52industrialWorkSubRanks, "Id", "Value", industrialLightNormaSet.SP52IndustrialWorkSubRankId);
+            SelectList sP52IndustrialWorkSubRanks = new SelectList(db.sp52industrialWorkSubRanks, "Id", "Value");
             ViewBag.SP52IndustrialWorkSubRanks = sP52IndustrialWorkSubRanks;
 
-            SelectList BackgroundContrasts = new SelectList(db.sp52backgroundContrasts, "Id", "Value", industrialLightNormaSet.SP52BackgroundContrastId);
-            ViewBag.SP52BackgroundContrasts = BackgroundContrasts;
+            SelectList sP52PubliclWorkRanks = new SelectList(db.sp52backgroundContrasts, "Id", "Value");
+            ViewBag.SP52PubliclWorkRanks = sP52PubliclWorkRanks;
 
-            SelectList SP52BackgroundCharacteristics = new SelectList(db.sp52BackgroundCharacteristics, "Id", "Value", industrialLightNormaSet.SP52BackgroundCharacteristicId);
-            ViewBag.SP52BackgroundCharacteristics = SP52BackgroundCharacteristics;
+            SelectList sP52PubliclSubWorkRanks = new SelectList(db.sp52BackgroundCharacteristics, "Id", "Value");
+            ViewBag.SP52PubliclSubWorkRanks = sP52PubliclSubWorkRanks;
 
             SelectList CombinedTotalIlluminances = new SelectList(db.sp52Illuminances, "Id", "Value", industrialLightNormaSet.CombinedTotalIlluminanceId);
             ViewBag.CombinedTotalIlluminances = CombinedTotalIlluminances;
