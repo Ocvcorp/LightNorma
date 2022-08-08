@@ -36,9 +36,11 @@ namespace LightNorma.Controllers
         }
         public IActionResult Create()
         {
+            MultiSelectList areaPlaceCategory0 = new MultiSelectList(db.AreaPlaceCategories0, "Id", "Name");
+            ViewBag.AreaPlaceCategories0 = areaPlaceCategory0;
 
             MultiSelectList areaRoomPlaces = new MultiSelectList(db.AreaRoomPlaces, "Id", "Name");
-            ViewBag.AreaRoomPlaces = areaRoomPlaces;//здесь может чаще к списку мест добавляться новое, но старое тоже использоваться, надо подумать
+            ViewBag.AreaRoomPlaces = areaRoomPlaces;
 
             SelectList sP52IndustrialWorkRanks = new SelectList(db.sp52industrialWorkRanks, "Id", "Value");
             ViewBag.SP52IndustrialWorkRanks = sP52IndustrialWorkRanks;
