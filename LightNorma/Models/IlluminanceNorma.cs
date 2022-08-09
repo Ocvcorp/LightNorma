@@ -25,6 +25,9 @@ namespace LightNorma.Models
         public string WorkRank { get; set; }                        
         [Display(Name = "Подразряд зрительной работы")]
         public string WorkSubRank { get; set; }
+        
+        //Предложение: вынести освещенность в отдельную таблицу с типом (п/сферич, цилиндр..), ориентацией плоскости и т.д.
+        
         [Display(Name = "Освещенность рабочей поверхности в комбинированном режиме от местного освещения")]
         public SP52Constants.SP52Illuminance CombinedLocalIlluminance { get; set; }
         public int? CombinedLocalIlluminanceId { get; set; }
