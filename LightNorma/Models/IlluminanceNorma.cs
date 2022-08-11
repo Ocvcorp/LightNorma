@@ -18,8 +18,7 @@ namespace LightNorma.Models
         public string SphIlluminancePlaneId { get; set; }
         [Display(Name = "Высота")]
         public double PlaneHeight { get; set; } = 0;
-        [Display(Name ="Доп инфо по плоскости")]
-        public string AdditionalPlaneInfo { get; set; }
+        
         [Display(Name = "Разряд зрительной работы")] 
         [Required(ErrorMessage = "Не указан разряд")]
         public string WorkRank { get; set; }                        
