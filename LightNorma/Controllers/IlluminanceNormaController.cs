@@ -20,12 +20,9 @@ namespace LightNorma.Controllers
         public IActionResult Index()
         {
             var extractILN = db.IlluminanceNormas.Include(p => p.AreaRoomPlaces)
-                                                .Include(p => p.CombinedCommonIlluminance)
-                                                .Include(p => p.CombinedLocalIlluminance)
-                                                .Include(p => p.CylindricalIlluminance)
-                                                .Include(p => p.Illuminance)
+
                                                 .Include(p => p.LightReglament)
-                                                .Include(p => p.SSphIlluminancePlane)                                   
+                                 
                                                 .ToList();
             ViewBag.PublicWorkRanks = db.sp52publicWorkRanks.ToList();
             ViewBag.IndustrialWorkRanks = db.sp52industrialWorkRanks.ToList();
@@ -42,8 +39,6 @@ namespace LightNorma.Controllers
             MultiSelectList areaRoomPlaces = new MultiSelectList(db.AreaRoomPlaces, "Id", "Name");
             ViewBag.AreaRoomPlaces = areaRoomPlaces;
 
-            SelectList normaPlaneType = new SelectList(db.SP52SemiSphIlluminancePlane, "Id", "Value");
-            ViewBag.SP52SemiSphIlluminancePlane = normaPlaneType;
 
             SelectList sP52IndustrialWorkRanks = new SelectList(db.sp52industrialWorkRanks, "Id", "Value");
             ViewBag.SP52IndustrialWorkRanks = sP52IndustrialWorkRanks;

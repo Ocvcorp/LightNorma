@@ -13,11 +13,7 @@ namespace LightNorma.Models
         [Display(Name = "Помещения, рабочие места")]
         [Required(ErrorMessage = "Место(помещение) не определено")]
         public List<AreaRoomPlace> AreaRoomPlaces { get; set; } = new List<AreaRoomPlace>();
-        [Display(Name = "Плоскость нормирования")]
-        public SP52Constants.SP52SemiSphIlluminancePlane SSphIlluminancePlane { get; set; }
-        public string SphIlluminancePlaneId { get; set; }
-        [Display(Name = "Высота")]
-        public double PlaneHeight { get; set; } = 0;
+        
         
         [Display(Name = "Разряд зрительной работы")] 
         [Required(ErrorMessage = "Не указан разряд")]
@@ -25,22 +21,7 @@ namespace LightNorma.Models
         [Display(Name = "Подразряд зрительной работы")]
         public string WorkSubRank { get; set; }
         
-        //Предложение: вынести освещенность в отдельную таблицу с типом (п/сферич, цилиндр..), ориентацией плоскости и т.д.
-        
-        [Display(Name = "Освещенность рабочей поверхности в комбинированном режиме от местного освещения")]
-        public SP52Constants.SP52Illuminance CombinedLocalIlluminance { get; set; }
-        public int? CombinedLocalIlluminanceId { get; set; }
-        [Display(Name = "Освещенность рабочей поверхности в комбинированном режиме от общего освещения")]
-        public SP52Constants.SP52Illuminance CombinedCommonIlluminance { get; set; }
-        public int? CombinedCommonIlluminanceId { get; set; }
-        [Display(Name = "Освещенность рабочей поверхности")]//for indoor/outdoor 
-        [Required(ErrorMessage = "Не выбрана освещенность")]
-        public SP52Constants.SP52Illuminance Illuminance { get; set; }        
-        public int? IlluminanceId { get; set; }
-        [Display(Name = "Цилиндрическая освещенность")]
-        public SP52Constants.SP52Illuminance CylindricalIlluminance { get; set; }
-        public int? CylindricalIlluminanceId { get; set; }
-        [Display(Name = "Объединенный показатель UGR")]
+        public List<IlluminanceSet> illuminanceSets { get; set; } = new List<IlluminanceSet>();
         public int? UGR { get; set; } //UGR - unified glare ratio for indoor
         [Display(Name = "Объединенный показатель UGR")]
         public int? Rg { get; set; } //RG (GR) - glare for outdoor 
@@ -48,14 +29,7 @@ namespace LightNorma.Models
         public double? FF { get; set; } //FF - flicker factor
         [Display(Name = "Индекс цветопередачи")]
         public double? Ra { get; set; } //Ra - CRI-color rendering index
-        [Display(Name = "Естественное освещение. КЕО при верхнем или комбинир освещении")]
-        public double? NaturalTopOrCombinedDF { get; set; } //DF - Daylight factor
-        [Display(Name = "Естественное освещение. КЕО при боковом освещении")]
-        public double? NaturalSideDF { get; set; }
-        [Display(Name = "Совмещенное освещение. КЕО при верхнем или комбинир освещении")]
-        public double? NatArtifTopOrCombinedDF { get; set; }
-        [Display(Name = "Совмещенное освещение. КЕО при боковом освещении")]
-        public double? NatArtifSideDF { get; set; }
+        public List<SP52Constants.SP52DaylightFactor> DaylightFactors { get; set; } = new List<SP52Constants.SP52DaylightFactor>();
         [Display(Name = "Примечание")]
         [NotMapped]
         public string Notes { get; set; } //for selecting in listbox
