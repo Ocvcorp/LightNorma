@@ -20,10 +20,8 @@ namespace LightNorma.Controllers
         public IActionResult Index()
         {
             var extractILN = db.IlluminanceNormas.Include(p => p.AreaRoomPlaces)
-
-                                                .Include(p => p.LightReglament)
-                                 
-                                                .ToList();
+                                                 .Include(p => p.LightReglament)
+                                                 .ToList();
             ViewBag.PublicWorkRanks = db.sp52publicWorkRanks.ToList();
             ViewBag.IndustrialWorkRanks = db.sp52industrialWorkRanks.ToList();
             ViewBag.PublicWorkSubRanks = db.sp52publicWorkSubRanks.ToList();
@@ -38,8 +36,7 @@ namespace LightNorma.Controllers
             ViewBag.AreaPlaceCategories0 = areaPlaceCategory0;
             MultiSelectList areaRoomPlaces = new MultiSelectList(db.AreaRoomPlaces, "Id", "Name");
             ViewBag.AreaRoomPlaces = areaRoomPlaces;
-
-
+            
             SelectList sP52IndustrialWorkRanks = new SelectList(db.sp52industrialWorkRanks, "Id", "Value");
             ViewBag.SP52IndustrialWorkRanks = sP52IndustrialWorkRanks;
             SelectList sP52IndustrialWorkSubRanks = new SelectList(db.sp52industrialWorkSubRanks, "Id", "Value");
@@ -49,9 +46,9 @@ namespace LightNorma.Controllers
             SelectList sP52PubliclSubWorkRanks = new SelectList(db.sp52BackgroundCharacteristics, "Id", "Value");
             ViewBag.SP52PubliclSubWorkRanks = sP52PubliclSubWorkRanks;
 
-            SelectList illuminances = new SelectList(db.sp52Illuminances, "Id", "Value");
+            /*SelectList illuminances = new SelectList(db.sp52Illuminances, "Id", "Value");
             ViewBag.Illuminances = illuminances;
-            /*SelectList combinedCommonIlluminances = new SelectList(db.sp52Illuminances, "Id", "Value");
+            SelectList combinedCommonIlluminances = new SelectList(db.sp52Illuminances, "Id", "Value");
             ViewBag.CombinedCommonIlluminances = illuminances;
             SelectList combinedLocalIlluminances = new SelectList(db.sp52Illuminances, "Id", "Value");
             ViewBag.CombinedLocalIlluminances = illuminances;*/         

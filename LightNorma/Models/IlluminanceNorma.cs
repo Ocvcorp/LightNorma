@@ -12,15 +12,12 @@ namespace LightNorma.Models
         public int Id { get; set; }
         [Display(Name = "Помещения, рабочие места")]
         [Required(ErrorMessage = "Место(помещение) не определено")]
-        public List<AreaRoomPlace> AreaRoomPlaces { get; set; } = new List<AreaRoomPlace>();
-        
-        
+        public List<AreaRoomPlace> AreaRoomPlaces { get; set; } = new List<AreaRoomPlace>();              
         [Display(Name = "Разряд зрительной работы")] 
         [Required(ErrorMessage = "Не указан разряд")]
         public string WorkRank { get; set; }                        
         [Display(Name = "Подразряд зрительной работы")]
-        public string WorkSubRank { get; set; }
-        
+        public string WorkSubRank { get; set; }       
         public List<IlluminanceSet> illuminanceSets { get; set; } = new List<IlluminanceSet>();
         public int? UGR { get; set; } //UGR - unified glare ratio for indoor
         [Display(Name = "Объединенный показатель UGR")]
