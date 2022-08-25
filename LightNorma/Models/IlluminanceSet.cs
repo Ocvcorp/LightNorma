@@ -11,9 +11,9 @@ namespace LightNorma.Models
         public SP52Constants.SP52Illuminance SP52Illuminance { get; set; }
         public string TypeShortName { get; set; }
         public string TypeName { get; set; } 
-        public double NormalX { get; set; }
-        public double NormalY { get; set; }
-        public double NormalZ { get; set; }
+        public double OXAngleNormal { get; set; }
+        public double OYAngleNormal { get; set; }
+        public double OZAngleNormal { get; set; }
         public double IllumHeight { get; set; }
         public string AdditionalPlaneInfo { get; set; }
         public int? IlluminanceNormaId { get; set; } 

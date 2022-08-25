@@ -12,7 +12,7 @@ namespace LightNorma.Models
         public int Id { get; set; }
         [Display(Name = "Помещения, рабочие места")]
         [Required(ErrorMessage = "Место(помещение) не определено")]
-        public List<AreaRoomPlace> AreaRoomPlaces { get; set; } = new List<AreaRoomPlace>();              
+        public List<AreaRoomPlace> AreaRoomPlaces { get; set; } = new List<AreaRoomPlace>();
         [Display(Name = "Разряд зрительной работы")] 
         [Required(ErrorMessage = "Не указан разряд")]
         public string WorkRank { get; set; }                        

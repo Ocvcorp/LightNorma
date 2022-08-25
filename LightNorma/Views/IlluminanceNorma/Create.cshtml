@@ -4,12 +4,14 @@
 
 }
 
-@using (Html.BeginForm(FormMethod.Post, new { id = "CreateEditForm" }))
+@using (Html.BeginForm(FormMethod.Post, new { id = "CreateForm" }))
 {
     @Html.AntiForgeryToken()
+    @await Html.PartialAsync("_IlluminancePartial")
 
 }
 
+@*
 @using (Html.BeginForm(FormMethod.Post, new { id = "CreateEditForm" }))
 {
     @Html.AntiForgeryToken()
@@ -183,3 +185,4 @@
     @await Html.PartialAsync("_ValidationScriptsPartial")   
 }
 
+*@

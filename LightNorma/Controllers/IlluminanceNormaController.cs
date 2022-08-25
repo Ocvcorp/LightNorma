@@ -21,6 +21,7 @@ namespace LightNorma.Controllers
         {
             var extractILN = db.IlluminanceNormas.Include(p => p.AreaRoomPlaces)
                                                  .Include(p => p.LightReglament)
+                                                 .Include(p => p.illuminanceSets)
                                                  .ToList();
             ViewBag.PublicWorkRanks = db.sp52publicWorkRanks.ToList();
             ViewBag.IndustrialWorkRanks = db.sp52industrialWorkRanks.ToList();
@@ -46,6 +47,11 @@ namespace LightNorma.Controllers
             SelectList sP52PubliclSubWorkRanks = new SelectList(db.sp52BackgroundCharacteristics, "Id", "Value");
             ViewBag.SP52PubliclSubWorkRanks = sP52PubliclSubWorkRanks;
 
+
+            ViewBag.SP52Illuminances = new SelectList(db.sp52Illuminances.ToList(),"Id","Value");
+            List<string> typeNames=new List<string>{"Горизонтальная", "Вертикальная", 
+                                                 "Цилиндрическая", "Полуцилиндрическая", "Произвольная"};//попробовать организовать в виде словаря, перечисления?
+            ViewBag.TypeNames = new SelectList(typeNames);
             /*SelectList illuminances = new SelectList(db.sp52Illuminances, "Id", "Value");
             ViewBag.Illuminances = illuminances;
             SelectList combinedCommonIlluminances = new SelectList(db.sp52Illuminances, "Id", "Value");
@@ -54,6 +60,11 @@ namespace LightNorma.Controllers
             ViewBag.CombinedLocalIlluminances = illuminances;*/         
 
             return View();
+        }
+        public IActionResult _IlluminancePartial()
+        {            
+            
+            return PartialView();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]

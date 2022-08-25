@@ -1,124 +1,58 @@
-﻿@model IEnumerable<LightNorma.Models.IlluminanceSet>
-
-<table class="table table-bordered">
-
-    @if (ViewBag.HasTableHeader)
-    {
-        <tr>
-            <td rowspan="4">Edit</td>
-            <td rowspan="4">Del</td>
-            <td rowspan="4">N№ поз.</td>
-            <td rowspan="4">Характеристика зрительной работы</td>
-            <td rowspan="4">Наименьший или эквивалентный размер объекта различения, мм</td>
-            <td rowspan="4">Разряд зрительной работы</td>
-            <td rowspan="4">Подразряд зрительной работы</td>
-            <td rowspan="4">Контраст объекта с фоном</td>
-            <td rowspan="4">Характеристика фона</td>
-            <td colspan="5">Искусственное освещение</td>
-            <td colspan="2">Естественное освещение</td>
-            <td colspan="2">Совмещенное освещение</td>
-        </tr>
-        <tr>
-            <td colspan="3">Освещенность, лк</td>
-            <td colspan="2">Сочетание нормируемых величин объединенного показателя дискомфорта UGR и коэффициента пульсации</td>
-            <td colspan="4">КЕО ен, %</td>
-        </tr>
-        <tr>
-            <td colspan="2">при системе комбинированного освещения</td>
-            <td rowspan="2">при системе общего освещения</td>
-            <td rowspan="2">UGR, не более</td>
-            <td rowspan="2">Кп, %, не более</td>
-            <td rowspan="2">при верхнем или комбинированном освещении</td>
-            <td rowspan="2">при боковом освещении</td>
-            <td rowspan="2">при верхнем или комбинированном освещении</td>
-            <td rowspan="2">при боковом освещении</td>
-        </tr>
-        <tr>
-            <td>Всего</td>
-            <td>В том числе от общего</td>
-        </tr>
-    }
+﻿@model LightNorma.Models.IlluminanceSet
 
 
+<div class="container-fluid">
+    <div class="p-1">
+        @Html.LabelFor(model=>model.SP52IlluminanceId)
+    </div>
+    <div class="p-1">        
+        <div class="row">            
+            <div class="col-xl-2">
+                @Html.DropDownListFor(model => model.SP52IlluminanceId, ViewBag.SP52Illuminances as SelectList, null, new { @class = "form-select" })
+            </div>
+            <div class="col-xl-2">
+                @Html.DropDownListFor(model => model.TypeName, ViewBag.TypeNames as SelectList, null, new { @class = "form-select" })
+            </div>
+            <div class="col-xl-1">
+                @Html.EditorFor(model => model.IllumHeight, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            <div class="col-xl-2">
+                @Html.TextAreaFor(model => model.AdditionalPlaneInfo, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+    </div>
+    <div class="p-1">
+        <div class="row">
+            <div class="col-xl-2">               
+            </div>
+            <div class="col-xl-1">
+                oX:
+                @Html.EditorFor(model => model.OXAngleNormal, new { htmlAttributes = new { @class = "form-control", id="OXAngleNormal"}} )
+            </div>
+        </div>
+    </div>
+    <div class="p-1">
+        <div class="row">
+            <div class="col-xl-2">
+            </div>
+            <div class="col-xl-1">
+                oY:
+                @Html.EditorFor(model => model.OYAngleNormal, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+    </div>
+    <div class="p-1">
+        <div class="row">
+            <div class="col-xl-2">
+            </div>
+            <div class="col-xl-1">
+                oZ:
+                @Html.EditorFor(model => model.OZAngleNormal, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+    </div>
+</div>
 
-    @{int ilnsIndex=ViewBag.StartTableNumber;}
-        @foreach (var ilns in Model)
-        {
-            <tr id=@ilns.Id.ToString()>
-                <td>@Html.ActionLink("Edit", "CreateEdit", "SP52IndustNRequire", null, null, "CreateEditForm", new { id = @ilns.Id }, null)</td>
-                <td>@Html.ActionLink("Del", "Delete", null, null, null, null, new { id = ilns.Id }, new { id = "DeleteLink" })</td>
-                <td>@(ilnsIndex+1)</td>
-                <td>@ilns.EyeAccuracy</td>
 
-            @if (@ilns.MinObjectSize0 != null && @ilns.MinObjectSizeN != null)
-            {
-                    <td> от @ilns.MinObjectSize0 до @ilns.MinObjectSizeN </td>
-            }
-            else if (@ilns.MinObjectSize0 == null && @ilns.MinObjectSizeN != null)
-            {
-                    <td> более @ilns.MinObjectSizeN </td>
-            }
-            else if (@ilns.MinObjectSize0 != null && @ilns.MinObjectSizeN == null)
-            {
-                    <td> менее @ilns.MinObjectSize0 </td>
-            }
-            else
-            {
-                    <td>  </td>
-            }
 
-                <td>@Html.DisplayFor(ilns_ => ilns.SP52IndustrialWorkRank.Value)</td>
-                <td>@Html.DisplayFor(ilns_ => ilns.SP52IndustrialWorkSubRank.Value)</td>
-                <td>@Html.DisplayFor(ilns_ => ilns.SP52BackgroundContrast.Value)</td>
-                <td>@Html.DisplayFor(ilns_ => ilns.SP52BackgroundCharacteristic.Value)</td>
-                <td>@Html.DisplayFor(ilns_ => ilns.CombinedTotalIlluminance.Value)</td>
-                <td>@Html.DisplayFor(ilns_ => ilns.CombinedCommonPartIlluminance.Value)</td>
-                <td>@Html.DisplayFor(ilns_ => ilns.CommonIlluminance.Value)</td>
-                <td>@ilns.UGR</td>
-                <td>@ilns.FF</td>
-                <td>@ilns.NaturalTopOrCombinedDF</td>
-                <td>@ilns.NaturalSideDF</td>
-                <td>@ilns.NatArtifTopOrCombinedDF</td>
-                <td>@ilns.NatArtifSideDF</td>
-            </tr>
-            ilnsIndex++;
-        }
-    
-        @if (!ViewBag.HasTableHeader)
-    {
-        <tr>
-            <td rowspan="4">Edit</td>
-            <td rowspan="4">Del</td>
-            <td rowspan="4">N№ поз.</td>
-            <td rowspan="4">Характеристика зрительной работы</td>
-            <td rowspan="4">Наименьший или эквивалентный размер объекта различения, мм</td>
-            <td rowspan="4">Разряд зрительной работы</td>
-            <td rowspan="4">Подразряд зрительной работы</td>
-            <td rowspan="4">Контраст объекта с фоном</td>
-            <td rowspan="4">Характеристика фона</td>
-            <td colspan="5">Искусственное освещение</td>
-            <td colspan="2">Естественное освещение</td>
-            <td colspan="2">Совмещенное освещение</td>
-        </tr>
-        <tr>
-            <td colspan="3">Освещенность, лк</td>
-            <td colspan="2">Сочетание нормируемых величин объединенного показателя дискомфорта UGR и коэффициента пульсации</td>
-            <td colspan="4">КЕО ен, %</td>
-        </tr>
-        <tr>
-            <td colspan="2">при системе комбинированного освещения</td>
-            <td rowspan="2">при системе общего освещения</td>
-            <td rowspan="2">UGR, не более</td>
-            <td rowspan="2">Кп, %, не более</td>
-            <td rowspan="2">при верхнем или комбинированном освещении</td>
-            <td rowspan="2">при боковом освещении</td>
-            <td rowspan="2">при верхнем или комбинированном освещении</td>
-            <td rowspan="2">при боковом освещении</td>
-        </tr>
-        <tr>
-            <td>Всего</td>
-            <td>В том числе от общего</td>
-        </tr>
-    }
-</table>
 
