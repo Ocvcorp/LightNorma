@@ -6,9 +6,19 @@
 
 @using (Html.BeginForm(FormMethod.Post, new { id = "CreateForm" }))
 {
-    @Html.AntiForgeryToken()
+    @Html.AntiForgeryToken()    
     @await Html.PartialAsync("_IlluminancePartial")
+    <p id="new_illuminancePartial"></p>
+}
+<a class="btn btn-info btn-sm" onclick="getIlluminancePartial();"> Add illuminance </a>
 
+@section scripts
+{
+    <script type="text/javascript">
+        function getIlluminancePartial() {
+            $("new_illuminancePartial").replacewith()
+        }
+    </script>
 }
 
 @*
