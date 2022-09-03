@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 
 namespace LightNorma.Models.SP52Constants
 {
-    public class SP52IndustrialWorkRank
+    public class SP52WorkRank
     {
         public int Id { get; set; }
         public string Value { get; set; }
+        public string Note { get; set; }
     }
 }

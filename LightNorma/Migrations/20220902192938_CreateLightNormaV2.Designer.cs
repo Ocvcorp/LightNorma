@@ -4,6 +4,7 @@ using LightNorma.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LightNorma.Migrations
 {
     [DbContext(typeof(LightNormaDBContext))]
-    partial class LightNormaDBContextModelSnapshot : ModelSnapshot
+    [Migration("20220902192938_CreateLightNormaV2")]
+    partial class CreateLightNormaV2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -422,6 +424,7 @@ namespace LightNorma.Migrations
                         .HasColumnType("int");
 
                     b.Property<int?>("CommonIlluminanceId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("EyeAccuracy")
@@ -673,7 +676,9 @@ namespace LightNorma.Migrations
 
                     b.HasOne("LightNorma.Models.SP52Constants.SP52Illuminance", "CommonIlluminance")
                         .WithMany()
-                        .HasForeignKey("CommonIlluminanceId");
+                        .HasForeignKey("CommonIlluminanceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("LightNorma.Models.LightReglament", "LightReglament")
                         .WithMany()

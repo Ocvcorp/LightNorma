@@ -20,12 +20,12 @@ namespace LightNorma.Models
         public double? MinObjectSizeN { get; set; }
         
         [Display(Name = "Разряд зрительной работы")]       
-        public SP52Constants.SP52PublicWorkRank SP52PublicWorkRank { get; set; }
+        public SP52Constants.SP52WorkRank SP52PublicWorkRank { get; set; }
         [Required(ErrorMessage = "Не указан разряд")]
         public int? SP52PublicWorkRankId { get; set; }
                         
         [Display(Name = "Подразряд зрительной работы")]
-        public SP52Constants.SP52PublicWorkSubRank SP52PublicWorkSubRank { get; set; }
+        public SP52Constants.SP52WorkSubRank SP52PublicWorkSubRank { get; set; }
         public int? SP52PublicWorkSubRankId { get; set; }
 
         [Display(Name = "Относ продолжительность зрит работы")]

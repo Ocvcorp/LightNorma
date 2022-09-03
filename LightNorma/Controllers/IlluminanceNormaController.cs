@@ -12,7 +12,7 @@ namespace LightNorma.Controllers
     public class IlluminanceNormaController : Controller
     {
         LightNormaDBContext db;
-        static bool addUpdateSwitcher; //switching between Add/Update methods
+        
         public IlluminanceNormaController(LightNormaDBContext context)
         {
             db = context;
@@ -23,10 +23,9 @@ namespace LightNorma.Controllers
                                                  .Include(p => p.LightReglament)
                                                  .Include(p => p.illuminanceSets)
                                                  .ToList();
-            ViewBag.PublicWorkRanks = db.sp52publicWorkRanks.ToList();
-            ViewBag.IndustrialWorkRanks = db.sp52industrialWorkRanks.ToList();
-            ViewBag.PublicWorkSubRanks = db.sp52publicWorkSubRanks.ToList();
-            ViewBag.IndustrialWorkSubRanks = db.sp52industrialWorkSubRanks.ToList();
+            ViewBag.WorkRanks = db.SP52WorkRanks.ToList();
+            ViewBag.WorkSubRanks = db.SP52WorkSubRanks.ToList();
+
 
             return View(extractILN);
         }
@@ -38,30 +37,26 @@ namespace LightNorma.Controllers
             MultiSelectList areaRoomPlaces = new MultiSelectList(db.AreaRoomPlaces, "Id", "Name");
             ViewBag.AreaRoomPlaces = areaRoomPlaces;
             
-            SelectList sP52IndustrialWorkRanks = new SelectList(db.sp52industrialWorkRanks, "Id", "Value");
-            ViewBag.SP52IndustrialWorkRanks = sP52IndustrialWorkRanks;
-            SelectList sP52IndustrialWorkSubRanks = new SelectList(db.sp52industrialWorkSubRanks, "Id", "Value");
-            ViewBag.SP52IndustrialWorkSubRanks = sP52IndustrialWorkSubRanks;
-            SelectList sP52PubliclWorkRanks = new SelectList(db.sp52backgroundContrasts, "Id", "Value");
-            ViewBag.SP52PubliclWorkRanks = sP52PubliclWorkRanks;
-            SelectList sP52PubliclSubWorkRanks = new SelectList(db.sp52BackgroundCharacteristics, "Id", "Value");
-            ViewBag.SP52PubliclSubWorkRanks = sP52PubliclSubWorkRanks;
+            SelectList sP52WorkRanks = new SelectList(db.SP52WorkRanks, "Id", "Value");
+            ViewBag.SP52WorkRanks = sP52WorkRanks;
+            SelectList sP52WorkSubRanks = new SelectList(db.SP52WorkSubRanks, "Id", "Value");
+            ViewBag.SP52WorkSubRanks = sP52WorkSubRanks;
 
 
-            ViewBag.SP52Illuminances = new SelectList(db.sp52Illuminances.ToList(),"Id","Value");
+            ViewBag.SP52Illuminances = new SelectList(db.SP52Illuminances.ToList(),"Id","Value");
             List<string> typeNames=new List<string>{"Горизонтальная", "Вертикальная", 
                                                  "Цилиндрическая", "Полуцилиндрическая", "Произвольная"};//попробовать организовать в виде словаря, перечисления?
             ViewBag.TypeNames = new SelectList(typeNames);
-            /*SelectList illuminances = new SelectList(db.sp52Illuminances, "Id", "Value");
+            /*SelectList illuminances = new SelectList(db.SP52Illuminances, "Id", "Value");
             ViewBag.Illuminances = illuminances;
-            SelectList combinedCommonIlluminances = new SelectList(db.sp52Illuminances, "Id", "Value");
+            SelectList combinedCommonIlluminances = new SelectList(db.SP52Illuminances, "Id", "Value");
             ViewBag.CombinedCommonIlluminances = illuminances;
-            SelectList combinedLocalIlluminances = new SelectList(db.sp52Illuminances, "Id", "Value");
+            SelectList combinedLocalIlluminances = new SelectList(db.SP52Illuminances, "Id", "Value");
             ViewBag.CombinedLocalIlluminances = illuminances;*/         
 
             return View();
         }
-        public IActionResult _IlluminancePartial()
+        public IActionResult IlluminancePartial()
         {            
             
             return PartialView();

@@ -21,11 +21,11 @@ namespace LightNorma.Models
         [Required(ErrorMessage = "Не указан разряд")]
         public int? SP52IndustrialWorkRankId { get; set; }
         [Display(Name = "Разряд зрительной работы")]        
-        public SP52Constants.SP52IndustrialWorkRank SP52IndustrialWorkRank { get; set; }
+        public SP52Constants.SP52WorkRank SP52IndustrialWorkRank { get; set; }
 
         public int? SP52IndustrialWorkSubRankId { get; set; }
         [Display(Name = "Подразряд зрительной работы")]
-        public SP52Constants.SP52IndustrialWorkSubRank SP52IndustrialWorkSubRank { get; set; }
+        public SP52Constants.SP52WorkSubRank SP52IndustrialWorkSubRank { get; set; }
 
         public int? SP52BackgroundContrastId { get; set; }
         [Display(Name = "Контраст объекта с фоном")]
@@ -43,7 +43,6 @@ namespace LightNorma.Models
         [Display(Name = "Освещенность при комб. режиме / От общего")]
         public SP52Constants.SP52Illuminance CombinedCommonPartIlluminance { get; set; }
 
-        [Required(ErrorMessage = "Не выбрана освещенность")]
         public int? CommonIlluminanceId { get; set; }
         [Display(Name = "Освещенность (общее освещение)")]
         public SP52Constants.SP52Illuminance CommonIlluminance { get; set; }

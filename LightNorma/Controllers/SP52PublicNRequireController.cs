@@ -28,23 +28,23 @@ namespace LightNorma.Controllers
             SP52PublicLightRequirement publicLightNormaSet = db.SP52PublicLightRequirements.Find(id);
             
             //data for Create/Edit form
-            SelectList sP52PublicWorkRanks = new SelectList(db.sp52publicWorkRanks, "Id", "Value");
+            SelectList sP52PublicWorkRanks = new SelectList(db.SP52WorkRanks, "Id", "Value");
             ViewBag.SP52publicWorkRanks = sP52PublicWorkRanks;
 
-            SelectList sP52publicWorkSubRanks = new SelectList(db.sp52publicWorkSubRanks, "Id", "Value");
+            SelectList sP52publicWorkSubRanks = new SelectList(db.SP52WorkSubRanks, "Id", "Value");
             ViewBag.SP52publicSubWorkRanks = sP52publicWorkSubRanks;
 
-            SelectList horizontalIlluminances = new SelectList(db.sp52Illuminances, "Id", "Value");
+            SelectList horizontalIlluminances = new SelectList(db.SP52Illuminances, "Id", "Value");
             ViewBag.HorizontalIlluminances = horizontalIlluminances;
 
-            SelectList cylindricalIlluminances = new SelectList(db.sp52Illuminances, "Id", "Value");
+            SelectList cylindricalIlluminances = new SelectList(db.SP52Illuminances, "Id", "Value");
             ViewBag.CylindricalIlluminances = cylindricalIlluminances;
 
-            var pLNNotes = db.sP52PublicLightNormaNotes.Include(n => n.sp52PublicLightRequirements)
+            var pLNNotes = db.SP52PublicLightNormaNotes.Include(n => n.sp52PublicLightRequirements)
                                                     .Where(n => n.sp52PublicLightRequirements.Any(p => p.Id == publicLightNormaSet.Id))
                                                     .ToList();
             var selectedPLNNotes = pLNNotes.Select(n => n.Id).ToList();
-            MultiSelectList sp52PublicLightNormaNotes = new MultiSelectList(db.sP52PublicLightNormaNotes, "Id", "Designation", selectedPLNNotes);
+            MultiSelectList sp52PublicLightNormaNotes = new MultiSelectList(db.SP52PublicLightNormaNotes, "Id", "Designation", selectedPLNNotes);
             ViewBag.SP52PublicLightNormaNotes = sp52PublicLightNormaNotes;           
                         
             SelectList lightReglaments = new SelectList(db.LightReglaments, "Id", "Name", publicLightNormaSet.LightReglamentId);
@@ -77,7 +77,7 @@ namespace LightNorma.Controllers
             List<bool> isThreeStarNote = new List<bool>();
             foreach (var item in db.SP52PublicLightRequirements)
             {
-                pLNNotes = db.sP52PublicLightNormaNotes.Include(n => n.sp52PublicLightRequirements)
+                pLNNotes = db.SP52PublicLightNormaNotes.Include(n => n.sp52PublicLightRequirements)
                                                     .Where(n => n.sp52PublicLightRequirements.Any(p => p.Id == item.Id))
                                                     .ToList();
                 selectedPLNNotes = pLNNotes.Select(n => n.Id).ToList();
@@ -115,19 +115,19 @@ namespace LightNorma.Controllers
                     //table Notes
                     if (!addUpdateSwitcher)//may be there are old nodes 
                     {
-                        //Removing old notes from linking table
+                        /*//Removing old notes from linking table
                         var notes2Remove = db.sP52PublicLightRequirementSP52PublicLightNormaNotes
-                                        .Where(x => x.publicLightNormaSetsId == publicLightNormaSet.Id)
+                                        .Where(x => x.SP52PublicLightRequirementsId == publicLightNormaSet.Id)
                                         .ToList();
                         if (notes2Remove != null)
                         {
                             db.RemoveRange(notes2Remove);
-                        }
+                        }*/
                     }
                     //Adding new notes
                     if (publicLightNormaSet.SP52PNSelectedNotes != null)
                     {
-                        var notes = db.sP52PublicLightNormaNotes
+                        var notes = db.SP52PublicLightNormaNotes
                                     .Where(n => publicLightNormaSet.SP52PNSelectedNotes.Contains(n.Id))
                                     .ToList();
                         publicLightNormaSet.SP52PublicLightNormaNotes.AddRange(notes);

@@ -6,22 +6,40 @@
 
 @using (Html.BeginForm(FormMethod.Post, new { id = "CreateForm" }))
 {
-    @Html.AntiForgeryToken()    
-    @await Html.PartialAsync("_IlluminancePartial")
-    <p id="new_illuminancePartial"></p>
+    @Html.AntiForgeryToken()
+    <div>@Html.EditorFor(model=>model.WorkRank)</div>
+    <div id="illuminancePartial">
+        @await Html.PartialAsync("IlluminancePartial")
+    </div>
+    <div id="new_illuminancePartial"></div>
+    <div class="p-1">
+        <div class="row">
+            <div class="col-xl-2">
+                <input type="submit" value="Сохранить" class="btn-group" />
+            </div>
+        </div>
+    </div>
+    
 }
-<a class="btn btn-info btn-sm" onclick="getIlluminancePartial();"> Add illuminance </a>
+<input id="getIlluminancePartial" type="button" value="Add illuminance" />
 
 @section scripts
 {
     <script type="text/javascript">
-        function getIlluminancePartial() {
-            $("new_illuminancePartial").replacewith()
-        }
+        $(document).ready(function(){
+            $('#getIlluminancePartial').click(function (e){
+                e.preventDefault();
+                var newIll = $('#illuminancePartial').clone();
+                $('#new_illuminancePartial').append(newIll);
+            });
+        });
+
+            
+        
     </script>
 }
 
-@*
+@*var hh=html(load('@Url.Action("IlluminancePartial","IlluminanceNorma")'));
 @using (Html.BeginForm(FormMethod.Post, new { id = "CreateEditForm" }))
 {
     @Html.AntiForgeryToken()

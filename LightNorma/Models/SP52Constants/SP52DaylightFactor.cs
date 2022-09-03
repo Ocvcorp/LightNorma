@@ -8,7 +8,7 @@ namespace LightNorma.Models.SP52Constants
     public class SP52DaylightFactor
     {
         public int Id { get; set; }
-        public double Value { get; set; }
+        public double? Value { get; set; }
         public string Conditions { get; set; }
         /*
         "Естественное освещение. КЕО при верхнем или комбинир освещении"
