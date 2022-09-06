@@ -58,7 +58,7 @@ namespace LightNorma
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=IlluminanceNorma}/{action=Create}");
+                    pattern: "{controller=SP52PublicNRequire}/{action=CreateEdit}");
             });
         }
     }

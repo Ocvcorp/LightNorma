@@ -115,14 +115,14 @@ namespace LightNorma.Controllers
                     //table Notes
                     if (!addUpdateSwitcher)//may be there are old nodes 
                     {
-                        /*//Removing old notes from linking table
-                        var notes2Remove = db.sP52PublicLightRequirementSP52PublicLightNormaNotes
-                                        .Where(x => x.SP52PublicLightRequirementsId == publicLightNormaSet.Id)
+                        //Removing old notes from linking table
+                        var notes2Remove = db.SP52PublicLightNormaNotes
+                                        .Where(n => publicLightNormaSet.SP52PNSelectedNotes.Contains(n.Id))
                                         .ToList();
                         if (notes2Remove != null)
                         {
                             db.RemoveRange(notes2Remove);
-                        }*/
+                        }
                     }
                     //Adding new notes
                     if (publicLightNormaSet.SP52PNSelectedNotes != null)
