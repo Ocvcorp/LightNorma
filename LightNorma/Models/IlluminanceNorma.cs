@@ -28,8 +28,8 @@ namespace LightNorma.Models
         public double? Ra { get; set; } //Ra - CRI-color rendering index
         public List<SP52Constants.SP52DaylightFactor> DaylightFactors { get; set; } = new List<SP52Constants.SP52DaylightFactor>();
         [Display(Name = "Примечание")]
-        [NotMapped]
-        public string Notes { get; set; } //for selecting in listbox
+        
+        public string Notes { get; set; } 
         [Display(Name = "Пользователь")]
         public UserInfrastructure.User User { get; set; }
         public int? UserId { get; set; }      

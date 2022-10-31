@@ -46,13 +46,15 @@ namespace LightNorma.Controllers
             ViewBag.CommonIlluminances = CommonIlluminances;
 
             //data for _GetIndexPartial
-            var extractILN = db.SP52IndustrialLightRequirements.Include(p => p.SP52IndustrialWorkRank)
+            var extractILN = db.SP52IndustrialLightRequirements.OrderBy(i=>i.SP52IndustrialWorkRank)
+                                                     .Include(p => p.SP52IndustrialWorkRank)
                                                      .Include(p => p.SP52IndustrialWorkSubRank)
                                                      .Include(p => p.SP52BackgroundContrast)
                                                      .Include(p => p.SP52BackgroundCharacteristic)
                                                      .Include(p => p.CombinedCommonPartIlluminance)
                                                      .Include(p => p.CombinedTotalIlluminance)
                                                      .Include(p => p.CommonIlluminance);
+                                                                                                          
             if (addUpdateSwitcher)
             {
                 ViewBag.DbAboveId = extractILN.ToList();

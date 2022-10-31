@@ -52,9 +52,7 @@ namespace LightNorma.Models
         public double? NaturalSideDF { get; set; }
 
         [Display(Name = "Примечание")]
-        public List<SP52Constants.SP52PublicLightNormaNote> SP52PublicLightNormaNotes { get; set; } = new();
-        [NotMapped]
-        public int[] SP52PNSelectedNotes { get; set; } //for selecting in listbox
+        public List<SP52Constants.SP52PublicLightNormaNote> SP52PublicLightNormaNotes { get; set; } = new();        
 
         [Display(Name = "Пользователь")]
         public UserInfrastructure.User User { get; set; }

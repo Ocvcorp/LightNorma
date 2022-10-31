@@ -61,9 +61,11 @@
                     <td></td>
                 }
 
-                <td>@Html.DisplayFor(plns_=>plns.SP52PublicWorkRank.Value)</td>
-                <td>@Html.DisplayFor(plns_=>plns.SP52PublicWorkSubRank.Value)</td>
-
+                <td>@Html.DisplayFor(plns_=>plns.SP52PublicWorkRank.Value)</td> @*No null-checking bacause of required in model*@
+                
+                <td>
+                    @(plns.SP52PublicWorkSubRank != null ? plns.SP52PublicWorkSubRank.Value.ToString():"")
+                </td>
                 @if (@plns.IsIntervalStartsFromRWDValue && @plns.RelativeWatchDuration != null)
                 {
                     <td>Не менее @plns.RelativeWatchDuration.Value</td>
@@ -77,23 +79,29 @@
                     <td></td>
                 }
 
-                <td>@Html.DisplayFor(plns_=>plns.HorizontalIlluminance.Value)</td>
+                <td>@Html.DisplayFor(plns_=>plns.HorizontalIlluminance.Value)</td> @*No null-checking bacause of required in model*@
+                
+                
                 <td>
                     @(plns.CylindricalIlluminance!=null
-                        ?(plns.CylindricalIlluminance.Value).ToString()+"*"                       
+                        ?(plns.CylindricalIlluminance.Value).ToString()                       
                         :"" 
-                    )                                               
-                </td>
-                <td>
-                    @plns.UGR
-                    @((ViewBag.isTwoStarNote)[plnsIndex]
-                        ?"**"
-                        :""
+                    )
+                    @(plns.SP52PublicLightNormaNotes.Select(n => n.Designation).ToList().Contains("*")
+                        ? "*"
+                        : ""
                     )
                 </td>
                 <td>
+                    @plns.UGR
+                    @(plns.SP52PublicLightNormaNotes.Select(n => n.Designation).ToList().Contains("**")
+                        ?"**"
+                        :""
+                    )                   
+                </td>
+                <td>
                     @plns.FF
-                    @((ViewBag.isThreeStarNote)[plnsIndex]
+                    @(plns.SP52PublicLightNormaNotes.Select(n => n.Designation).ToList().Contains("***")
                         ?"***"
                         :""
                     )
@@ -101,13 +109,9 @@
             
                 
             <td>@plns.NaturalTopOrCombinedDF</td>
-            <td>@plns.NaturalSideDF</td>
-        
-
-        <td>@Html.DisplayFor(plns_ => plns.LightReglament.Name)</td>
-        <td>@Html.DisplayFor(plns_ => plns.User.Name)</td>
-
-
+            <td>@plns.NaturalSideDF</td>        
+            <td>@Html.DisplayFor(plns_ => plns.LightReglament.Name)</td>
+            <td>@Html.DisplayFor(plns_ => plns.User.Name)</td>
 
             </tr>
             plnsIndex++;
@@ -145,200 +149,197 @@
     }
 
     
-    @*we will customise the table view to meet such one in SP52.13330*@
+    @*in case below we will customise the table view to meet such one in SP52.13330*@
     @if (ViewBag.ShouldSomeDataMerge)
     {
         
         string eyeAccuracy;
-        string eyePredAV = "Различение объектов при фиксированной и нефиксированной линии зрения";
+        string eyePredAV  = "Различение объектов при фиксированной и нефиксированной линии зрения";
         string eyePredGDE = "Обзор окружающего пространства при очень кратковременном, эпизодическом различении объектов";
-        string eyePredJ = "Общее ориентирование в пространстве интерьера";
-        string eyePredZ = "Общее ориентирование в зонах передвижения";
+        string eyePredJ   = "Общее ориентирование в пространстве интерьера";
+        string eyePredZ   = "Общее ориентирование в зонах передвижения";
 
         int plnsIndex=0;
         var plnsArray = Model.ToArray<SP52PublicLightRequirement>();
-        for (int i=0; i< plnsArray.Length+4; i++)
-        {
-        @if (@i==0)
-        {
-            <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>@eyePredAV:</td>
-            </tr>
-            continue;
-        }
-        @if (@i==13+0)
-        {
+               
+            for (int i=0; i< plnsArray.Length+4; i++)
+            {
+                @if (@i==0)
+                {
+                    <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>@eyePredAV:</td>
+                    </tr>
+                    continue;
+                }
+                @if (@i==13+0)
+                {
             
-            <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>@eyePredGDE:</td>
-            <td>Независимо от размера объекта различения</td>
-            <td></td>
-            <td></td>
-            <td>Независимо от продолжительности зрительной работы</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>Не регламентируется</td>
-            </tr>
-            continue;
-        }
-        @if (@i==16+1)
-        { 
-            <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>@eyePredJ:</td>
-            <td>То же</td>
-            <td></td>
-            <td></td>
-            <td>То же</td>
-            <td></td>
-            <td colspan="5">Не регламентируется</td>
-            </tr>
-            continue;
-        }
-        @if (@i==18+2)
-        {
-            <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>@eyePredZ:</td>
-            <td>"</td>
-            <td></td>
-            <td></td>
-            <td>"</td>
-            </tr>
-            continue;
-        }
-        <tr id=plnsArray[@plnsIndex].Id.ToString()>
-        <td> @Html.ActionLink("Edit", "Edit", "SP52PublicNRequire", null, null, "editFormPlace", new { id = plnsArray[@plnsIndex].Id }, null)</td>
-        <td> @Html.ActionLink("Del", "Delete", null, null, null, null, new { id = plnsArray[@plnsIndex].Id }, new { id = "DeleteLink" })</td>
+                    <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>@eyePredGDE:</td>
+                    <td>Независимо от размера объекта различения</td>
+                    <td></td>
+                    <td></td>
+                    <td>Независимо от продолжительности зрительной работы</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Не регламентируется</td>
+                    </tr>
+                    continue;
+                }
+                @if (@i==16+1)
+                { 
+                    <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>@eyePredJ:</td>
+                    <td>То же</td>
+                    <td></td>
+                    <td></td>
+                    <td>То же</td>
+                    <td></td>
+                    <td colspan="5">Не регламентируется</td>
+                    </tr>
+                    continue;
+                }
+                @if (@i==18+2)
+                {
+                    <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>@eyePredZ:</td>
+                    <td>"</td>
+                    <td></td>
+                    <td></td>
+                    <td>"</td>
+                    </tr>
+                    continue;
+                }
+                <tr id=plnsArray[@plnsIndex].Id.ToString()>
+                <td> </td>
+                <td> </td>
         
-        <td> @((plnsIndex+1).ToString())</td>
+                <td> @((plnsIndex+1).ToString())</td>
         
-        @{eyeAccuracy = @plnsArray[@plnsIndex].EyeAccuracy;}
-        @if (@i==1||@i==5||@i==9)
-        {                           
-            <td rowspan="4">-@eyeAccuracy.Substring(eyePredAV.Length)</td>
-        }
-        else if(@i>13&&@i<17)
-        {
-            <td>-@eyeAccuracy.Substring(eyePredGDE.Length)</td>
-        }
-        else if (@i>17&&@i<20)
-        {
-            <td>-@eyeAccuracy.Substring(eyePredJ.Length)</td>
-        }
-        else if (@i>20)
-        {
-            <td>-@eyeAccuracy.Substring(eyePredZ.Length)</td>
-        }
+                @{eyeAccuracy = @plnsArray[@plnsIndex].EyeAccuracy;}
+                @if (@i==1||@i==5||@i==9)
+                {                           
+                    <td rowspan="4">-@eyeAccuracy.Substring(eyePredAV.Length)</td>
+                }
+                else if(@i>13&&@i<17)
+                {
+                    <td>-@eyeAccuracy.Substring(eyePredGDE.Length)</td>
+                }
+                else if (@i>17&&@i<20)
+                {
+                    <td>-@eyeAccuracy.Substring(eyePredJ.Length)</td>
+                }
+                else if (@i>20)
+                {
+                    <td>-@eyeAccuracy.Substring(eyePredZ.Length)</td>
+                }
          
 
-        @if (@plnsArray[@plnsIndex].MinObjectSize0 != null && @plnsArray[@plnsIndex].MinObjectSizeN != null && (@i==1||@i==5||@i==9))
-        {
-            <td rowspan="4"> от @plnsArray[@plnsIndex].MinObjectSize0 до @plnsArray[@plnsIndex].MinObjectSizeN </td>
-        }
-        else if (@plnsArray[@plnsIndex].MinObjectSize0 == null && @plnsArray[@plnsIndex].MinObjectSizeN != null && (@i==1||@i==5||@i==9))
-        {
-            <td rowspan="4"> более @plnsArray[@plnsIndex].MinObjectSizeN </td>
-        }
-        else if (@plnsArray[@plnsIndex].MinObjectSize0 != null && @plnsArray[@plnsIndex].MinObjectSizeN == null && (@i==1||@i==5||@i==9))
-        {
-            <td rowspan="4"> менее @plnsArray[@plnsIndex].MinObjectSize0 </td>
-        }
-        else if (@i>12)
-        {
-            <td>  </td>
-        }
+                @if (@plnsArray[@plnsIndex].MinObjectSize0 != null && @plnsArray[@plnsIndex].MinObjectSizeN != null && (@i==1||@i==5||@i==9))
+                {
+                    <td rowspan="4"> от @plnsArray[@plnsIndex].MinObjectSize0 до @plnsArray[@plnsIndex].MinObjectSizeN </td>
+                }
+                else if (@plnsArray[@plnsIndex].MinObjectSize0 == null && @plnsArray[@plnsIndex].MinObjectSizeN != null && (@i==1||@i==5||@i==9))
+                {
+                    <td rowspan="4"> более @plnsArray[@plnsIndex].MinObjectSizeN </td>
+                }
+                else if (@plnsArray[@plnsIndex].MinObjectSize0 != null && @plnsArray[@plnsIndex].MinObjectSizeN == null && (@i==1||@i==5||@i==9))
+                {
+                    <td rowspan="4"> менее @plnsArray[@plnsIndex].MinObjectSize0 </td>
+                }
+                else if (@i>12)
+                {
+                    <td>  </td>
+                }
 
-        @if (@i<13&&@i%2==1)
-        {
-            <td rowspan="2">@Html.DisplayFor(plns_ => plnsArray[@plnsIndex].SP52PublicWorkRank.Value)</td>
-            <td rowspan="2">@Html.DisplayFor(plns_ => plnsArray[@plnsIndex].SP52PublicWorkSubRank.Value)</td>
-            @if (plnsArray[@plnsIndex].IsIntervalStartsFromRWDValue && plnsArray[@plnsIndex].RelativeWatchDuration != null)
-            {
-                <td rowspan="2">Не менее @plnsArray[@plnsIndex].RelativeWatchDuration.Value</td>
-            }
-            else if (!plnsArray[@plnsIndex].IsIntervalStartsFromRWDValue && plnsArray[@plnsIndex].RelativeWatchDuration != null)
-            {
-                <td rowspan="2">Менее @plnsArray[@plnsIndex].RelativeWatchDuration.Value</td>
-            }
-            else
-            {
-                <td></td>
-            }
-            <td rowspan="2">@Html.DisplayFor(plns_ => plnsArray[@plnsIndex].HorizontalIlluminance.Value)</td>
-                    @if (@i==11)
+                @if (@i<13&&@i%2==1)
+                {
+                    <td rowspan="2">@Html.DisplayFor(plns_ => plnsArray[@plnsIndex].SP52PublicWorkRank.Value)</td>
+                    <td rowspan="2">@Html.DisplayFor(plns_ => plnsArray[@plnsIndex].SP52PublicWorkSubRank.Value)</td>
+                    @if (plnsArray[@plnsIndex].IsIntervalStartsFromRWDValue && plnsArray[@plnsIndex].RelativeWatchDuration != null)
                     {
-                        <td rowspan="2">Не регламентируется</td>
+                        <td rowspan="2">Не менее @plnsArray[@plnsIndex].RelativeWatchDuration.Value</td>
+                    }
+                    else if (!plnsArray[@plnsIndex].IsIntervalStartsFromRWDValue && plnsArray[@plnsIndex].RelativeWatchDuration != null)
+                    {
+                        <td rowspan="2">Менее @plnsArray[@plnsIndex].RelativeWatchDuration.Value</td>
                     }
                     else
                     {
-                         <td rowspan="2">@Html.DisplayFor(plns_ => plnsArray[@plnsIndex].CylindricalIlluminance.Value)*</td>
+                        <td></td>
                     }
-                   
+                    <td rowspan="2">@Html.DisplayFor(plns_ => plnsArray[@plnsIndex].HorizontalIlluminance.Value)</td>
+                            @if (@i==11)
+                            {
+                                <td rowspan="2">Не регламентируется</td>
+                            }
+                            else
+                            {
+                                 <td rowspan="2">@Html.DisplayFor(plns_ => plnsArray[@plnsIndex].CylindricalIlluminance.Value)*</td>
+                            }                  
+                }
+                else if (@i>13&&@i<17)
+                {
+                    <td>@Html.DisplayFor(plns_ => plnsArray[@plnsIndex].SP52PublicWorkRank.Value)</td>
+                    <td>@Html.DisplayFor(plns_ => plnsArray[@plnsIndex].SP52PublicWorkSubRank.Value)</td>
+                    <td></td>
+                    <td>@Html.DisplayFor(plns_ => plnsArray[@plnsIndex].HorizontalIlluminance.Value)</td>
+                    <td>@Html.DisplayFor(plns_ => plnsArray[@plnsIndex].CylindricalIlluminance.Value)*</td>
+                }
+                else if (@i>17)
+                {
+                    <td>@Html.DisplayFor(plns_ => plnsArray[@plnsIndex].SP52PublicWorkRank.Value)</td>
+                    <td>@Html.DisplayFor(plns_ => plnsArray[@plnsIndex].SP52PublicWorkSubRank.Value)</td>
+                    <td></td>
+                    <td>@Html.DisplayFor(plns_ => plnsArray[@plnsIndex].HorizontalIlluminance.Value)</td>
+                    <td></td>
+                }
 
-        }
-        else if (@i>13&&@i<17)
-        {
-            <td>@Html.DisplayFor(plns_ => plnsArray[@plnsIndex].SP52PublicWorkRank.Value)</td>
-            <td>@Html.DisplayFor(plns_ => plnsArray[@plnsIndex].SP52PublicWorkSubRank.Value)</td>
-            <td></td>
-            <td>@Html.DisplayFor(plns_ => plnsArray[@plnsIndex].HorizontalIlluminance.Value)</td>
-            <td>@Html.DisplayFor(plns_ => plnsArray[@plnsIndex].CylindricalIlluminance.Value)*</td>
-        }
-        else if (@i>17)
-        {
-            <td>@Html.DisplayFor(plns_ => plnsArray[@plnsIndex].SP52PublicWorkRank.Value)</td>
-            <td>@Html.DisplayFor(plns_ => plnsArray[@plnsIndex].SP52PublicWorkSubRank.Value)</td>
-            <td></td>
-            <td>@Html.DisplayFor(plns_ => plnsArray[@plnsIndex].HorizontalIlluminance.Value)</td>
-            <td></td>
-        }
+                <td>
+                    @plnsArray[@plnsIndex].UGR
+                    @(@plnsArray[@plnsIndex].SP52PublicLightNormaNotes.Select(n => n.Designation).ToList().Contains("**")
+                    ? "**"
+                    : ""
+                    )
+                </td>
+                <td>
+                    @plnsArray[@plnsIndex].FF
+                    @(@plnsArray[@plnsIndex].SP52PublicLightNormaNotes.Select(n => n.Designation).ToList().Contains("***")
+                    ? "***"
+                    : ""
+                    )
+                </td>
 
-        @if ((ViewBag.isTwoStarNote)[@plnsIndex])
-        {
-            <td>@plnsArray[@plnsIndex].UGR**</td>
-        }
-        else
-        {
-            <td>@plnsArray[@plnsIndex].UGR</td>
-        }
+                @if (@i <= 13 && @i % 2 == 1)
+                {
+                    <td rowspan="2">@plnsArray[@plnsIndex].NaturalTopOrCombinedDF</td>
+                    <td rowspan="2">@plnsArray[@plnsIndex].NaturalSideDF</td>
+                }
+                else if (@i>13)
+                {
+                    <td>@plnsArray[@plnsIndex].NaturalTopOrCombinedDF</td>
+                    <td>@plnsArray[@plnsIndex].NaturalSideDF</td>
+                }
+
+                <td>@Html.DisplayFor(plns_ => plnsArray[@plnsIndex].LightReglament.Name)</td>
+                <td>@Html.DisplayFor(plns_ => plnsArray[@plnsIndex].User.Name)</td>
+                </tr>
+                plnsIndex++;
+            }
         
-        @if ((ViewBag.isThreeStarNote)[@plnsIndex])
-        {
-            <td>@plnsArray[@plnsIndex].FF***</td>
-        }
-        else
-        {
-            <td>@plnsArray[@plnsIndex].FF</td>
-        }
-
-        @if (@i <= 13 && @i % 2 == 1)
-        {
-            <td rowspan="2">@plnsArray[@plnsIndex].NaturalTopOrCombinedDF</td>
-            <td rowspan="2">@plnsArray[@plnsIndex].NaturalSideDF</td>
-        }
-        else if (@i>13)
-        {
-            <td>@plnsArray[@plnsIndex].NaturalTopOrCombinedDF</td>
-            <td>@plnsArray[@plnsIndex].NaturalSideDF</td>
-        }
-
-        <td>@Html.DisplayFor(plns_ => plnsArray[@plnsIndex].LightReglament.Name)</td>
-        <td>@Html.DisplayFor(plns_ => plnsArray[@plnsIndex].User.Name)</td>
-        </tr>
-        plnsIndex++;
-        }
     }
 </table>
 

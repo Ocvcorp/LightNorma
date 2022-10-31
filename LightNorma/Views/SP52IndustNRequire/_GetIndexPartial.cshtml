@@ -66,24 +66,36 @@
                     <td>  </td>
             }
 
-                <td>@Html.DisplayFor(ilns_ => ilns.SP52IndustrialWorkRank.Value)</td>
-                <td>@Html.DisplayFor(ilns_ => ilns.SP52IndustrialWorkSubRank.Value)</td>
-                <td>@Html.DisplayFor(ilns_ => ilns.SP52BackgroundContrast.Value)</td>
-                <td>@Html.DisplayFor(ilns_ => ilns.SP52BackgroundCharacteristic.Value)</td>
-                <td>@Html.DisplayFor(ilns_ => ilns.CombinedTotalIlluminance.Value)</td>
-                <td>@Html.DisplayFor(ilns_ => ilns.CombinedCommonPartIlluminance.Value)</td>
-                <td>@Html.DisplayFor(ilns_ => ilns.CommonIlluminance.Value)</td>
-                <td>@ilns.UGR</td>
-                <td>@ilns.FF</td>
-                <td>@ilns.NaturalTopOrCombinedDF</td>
-                <td>@ilns.NaturalSideDF</td>
-                <td>@ilns.NatArtifTopOrCombinedDF</td>
-                <td>@ilns.NatArtifSideDF</td>
+            <td>@Html.DisplayFor(ilns_ => ilns.SP52IndustrialWorkRank.Value)</td> @*no checking because of required parametr in model*@
+            <td>
+                @(ilns.SP52IndustrialWorkSubRank != null ? ilns.SP52IndustrialWorkSubRank.Value : "")
+            </td>
+            <td>
+                @(ilns.SP52BackgroundContrast != null ? ilns.SP52BackgroundContrast.Value : "")
+            </td>
+            <td>
+                @(ilns.SP52BackgroundCharacteristic != null ? ilns.SP52BackgroundCharacteristic.Value : "")
+            </td>
+            <td>
+                @(ilns.CombinedTotalIlluminance != null ? ilns.CombinedTotalIlluminance.Value : "")
+            </td>
+            <td>
+                @(ilns.CombinedCommonPartIlluminance != null ? ilns.CombinedCommonPartIlluminance.Value : "")
+            </td>
+            <td>
+                @(ilns.CommonIlluminance != null ? ilns.CommonIlluminance.Value : "")
+            </td>
+            <td>@ilns.UGR</td>
+            <td>@ilns.FF</td>
+            <td>@ilns.NaturalTopOrCombinedDF</td>
+            <td>@ilns.NaturalSideDF</td>
+            <td>@ilns.NatArtifTopOrCombinedDF</td>
+            <td>@ilns.NatArtifSideDF</td>
             </tr>
             ilnsIndex++;
         }
     
-        @if (!ViewBag.HasTableHeader)
+    @if (!ViewBag.HasTableHeader)
     {
         <tr>
             <td rowspan="4">Edit</td>

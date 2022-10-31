@@ -41,10 +41,10 @@ namespace LightNorma.Controllers
             ViewBag.CylindricalIlluminances = cylindricalIlluminances;
 
             var pLNNotes = db.SP52PublicLightNormaNotes.Include(n => n.sp52PublicLightRequirements)
-                                                    .Where(n => n.sp52PublicLightRequirements.Any(p => p.Id == publicLightNormaSet.Id))
+                                                    .Where(n => n.sp52PublicLightRequirements.Any(p => p.Id == publicLightNormaSet.Id))                                                    
                                                     .ToList();
             var selectedPLNNotes = pLNNotes.Select(n => n.Id).ToList();
-            MultiSelectList sp52PublicLightNormaNotes = new MultiSelectList(db.SP52PublicLightNormaNotes, "Id", "Designation", selectedPLNNotes);
+            MultiSelectList sp52PublicLightNormaNotes = new MultiSelectList(db.SP52PublicLightNormaNotes.OrderBy(n=>n.Designation), "Id", "Designation", selectedPLNNotes);
             ViewBag.SP52PublicLightNormaNotes = sp52PublicLightNormaNotes;           
                         
             SelectList lightReglaments = new SelectList(db.LightReglaments, "Id", "Name", publicLightNormaSet.LightReglamentId);
@@ -61,7 +61,7 @@ namespace LightNorma.Controllers
                                                     .Include(p => p.SP52PublicLightNormaNotes)
                                                     .Include(p => p.LightReglament)
                                                     .Include(p => p.User);
-
+            
             if (addUpdateSwitcher)
             {
                 ViewBag.DbAboveId = extractPLN.ToList();
@@ -72,85 +72,66 @@ namespace LightNorma.Controllers
             }
             ViewBag.DbBelowId = extractPLN.Where(r => r.Id > id).ToList();
 
-            //_GetIndexPartial: Lists for adding Note-marker (** or ***) to some data
-            List<bool> isTwoStarNote = new List<bool>();            
-            List<bool> isThreeStarNote = new List<bool>();
-            foreach (var item in db.SP52PublicLightRequirements)
-            {
-                pLNNotes = db.SP52PublicLightNormaNotes.Include(n => n.sp52PublicLightRequirements)
-                                                    .Where(n => n.sp52PublicLightRequirements.Any(p => p.Id == item.Id))
-                                                    .ToList();
-                selectedPLNNotes = pLNNotes.Select(n => n.Id).ToList();
-                if (selectedPLNNotes.IndexOf(2) != -1)
-                {
-                    isTwoStarNote.Add(true);                   
-                }
-                else
-                {
-                    isTwoStarNote.Add(false);
-                }
-
-                if (selectedPLNNotes.IndexOf(3) != -1)
-                {
-                    isThreeStarNote.Add(true);
-                }
-                else
-                {
-                    isThreeStarNote.Add(false);
-                }
-            }
-            ViewBag.isTwoStarNote = isTwoStarNote;
-            ViewBag.isThreeStarNote = isThreeStarNote;
-
-
             return View(publicLightNormaSet);
         }
-        
+    
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult CreateEdit(SP52PublicLightRequirement publicLightNormaSet)
-        {            
-           if (ModelState.IsValid)
-           {
-                    //table Notes
-                    if (!addUpdateSwitcher)//may be there are old nodes 
-                    {
-                        //Removing old notes from linking table
-                        var notes2Remove = db.SP52PublicLightNormaNotes
-                                        .Where(n => publicLightNormaSet.SP52PNSelectedNotes.Contains(n.Id))
-                                        .ToList();
-                        if (notes2Remove != null)
-                        {
-                            db.RemoveRange(notes2Remove);
-                        }
-                    }
-                    //Adding new notes
-                    if (publicLightNormaSet.SP52PNSelectedNotes != null)
-                    {
-                        var notes = db.SP52PublicLightNormaNotes
-                                    .Where(n => publicLightNormaSet.SP52PNSelectedNotes.Contains(n.Id))
-                                    .ToList();
-                        publicLightNormaSet.SP52PublicLightNormaNotes.AddRange(notes);
-                        db.SaveChanges();                    
-                    }
+        public IActionResult CreateEdit(int?  id, SP52PublicLightRequirement publicLightNormaSet, int[] selectedNotes)
+        {
+            if (ModelState.IsValid)
+            {               
                 //Switch database actions
                 if (addUpdateSwitcher)//Add case 
-                {                    
+                {
+                    //Adding new notes
+                    if (selectedNotes.Any())
+                    {
+                        var notes = db.SP52PublicLightNormaNotes
+                                    .Where(n => selectedNotes.Contains(n.Id))
+                                    .ToList();
+                        publicLightNormaSet.SP52PublicLightNormaNotes.AddRange(notes);
+                    }
                     db.SP52PublicLightRequirements.Add(publicLightNormaSet);                   
                 }
                 else //Update case
-                {                    
-                    db.Entry(publicLightNormaSet).State = EntityState.Modified;    
+                {                   
+                    db.Entry(publicLightNormaSet).State = EntityState.Modified;
+                    UpdateMany2Many(id, selectedNotes);
                 }
                 db.SaveChanges();                   
-           }           
-           return Redirect("~/SP52PublicNRequire/CreateEdit/#CreateEditForm"); 
-            
+            }           
+            return Redirect("~/SP52PublicNRequire/CreateEdit/#CreateEditForm");             
         }
         
+        private void UpdateMany2Many(int? id, int[] selectedNotes)
+        {
+            var publicLightNormaSet = db.SP52PublicLightRequirements.FirstOrDefault(pl => pl.Id == id);
+            //adding/changing notes
+            var notesList = db.SP52PublicLightNormaNotes.Include(n => n.sp52PublicLightRequirements).ToList();
+            var oldNotes = notesList.Where(n => n.sp52PublicLightRequirements.Any(p => p.Id == id)).ToList();
+            //Removing old notes
+            if (oldNotes.Any())
+            {
+                foreach (var note in oldNotes)
+                {
+                    publicLightNormaSet.SP52PublicLightNormaNotes.Remove(note);
+                }
+            }
+            //Adding new notes
+            if (selectedNotes.Any())
+            {
+                var notes = db.SP52PublicLightNormaNotes
+                            .Where(n => selectedNotes.Contains(n.Id))
+                            .ToList();
+                publicLightNormaSet.SP52PublicLightNormaNotes.AddRange(notes);
+            }
+            db.Entry(publicLightNormaSet).State = EntityState.Modified;
+            db.SaveChanges();
+        }
         public IActionResult Delete(int? id)
         {
-            SP52PublicLightRequirement plns = db.SP52PublicLightRequirements.Find(id);
+            SP52PublicLightRequirement plns = db.SP52PublicLightRequirements.FirstOrDefault(plr=>plr.Id==id);
             db.SP52PublicLightRequirements.Remove(plns);
             db.SaveChanges();
             return Redirect("~/SP52PublicNRequire/CreateEdit/#CreateEditForm");

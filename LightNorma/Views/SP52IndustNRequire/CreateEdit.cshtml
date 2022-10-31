@@ -90,8 +90,7 @@
                     @Html.LabelFor(model=>model.CommonIlluminance)
                 </div>
                 <div class="col-xl-2">
-                    @Html.DropDownListFor(model=>model.CommonIlluminanceId,ViewBag.CommonIlluminances as SelectList, null, new { @class = "form-select" })                    
-                    @Html.ValidationMessageFor(model => model.CommonIlluminanceId,"", new {@class="text-danger"})
+                    @Html.DropDownListFor(model=>model.CommonIlluminanceId,ViewBag.CommonIlluminances as SelectList, "None", new { @class = "form-select" })                    
                 </div>
             </div>
         </div>
@@ -164,7 +163,7 @@
 
 <a name="bottom"></a>
 
-@section scripts
+@*section scripts
 {
     <script type="text/javascript">
         $("body").on("submit", "#CreateEditForm", function () {
@@ -177,5 +176,5 @@
         });
     </script>
     @await Html.PartialAsync("_ValidationScriptsPartial")   
-}
+}*@
 
