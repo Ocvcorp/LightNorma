@@ -18,7 +18,7 @@ namespace LightNorma.Models
         public string WorkRank { get; set; }                        
         [Display(Name = "Подразряд зрительной работы")]
         public string WorkSubRank { get; set; }       
-        public List<IlluminanceSet> illuminanceSets { get; set; } = new List<IlluminanceSet>();
+        public List<IlluminanceSet> IlluminanceSets { get; set; } = new List<IlluminanceSet>();
         public int? UGR { get; set; } //UGR - unified glare ratio for indoor
         [Display(Name = "Объединенный показатель UGR")]
         public int? Rg { get; set; } //RG (GR) - glare for outdoor 
@@ -26,9 +26,14 @@ namespace LightNorma.Models
         public double? FF { get; set; } //FF - flicker factor
         [Display(Name = "Индекс цветопередачи")]
         public double? Ra { get; set; } //Ra - CRI-color rendering index
-        public List<SP52Constants.SP52DaylightFactor> DaylightFactors { get; set; } = new List<SP52Constants.SP52DaylightFactor>();
-        [Display(Name = "Примечание")]
-        
+        public double? NaturalTopOrCombinedDF { get; set; } //DF - Daylight factor
+        [Display(Name = "КЕО при боковом естественном освещении")]
+        public double? NaturalSideDF { get; set; }
+        [Display(Name = "КЕО при верхнем или комбинир совмещенном освещении")]
+        public double? NatArtifTopOrCombinedDF { get; set; }
+        [Display(Name = "КЕО при боковом совмещенном освещении")]
+        public double? NatArtifSideDF { get; set; }
+        [Display(Name = "Примечание")]        
         public string Notes { get; set; } 
         [Display(Name = "Пользователь")]
         public UserInfrastructure.User User { get; set; }

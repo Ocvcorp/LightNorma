@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LightNorma.Migrations
 {
     [DbContext(typeof(LightNormaDBContext))]
-    [Migration("20220903081343_IndustCommENULL")]
-    partial class IndustCommENULL
+    [Migration("20221114200618_BaseCat2")]
+    partial class BaseCat2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -47,6 +47,9 @@ namespace LightNorma.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int?>("BaseAppilcationCategoryId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -54,6 +57,8 @@ namespace LightNorma.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BaseAppilcationCategoryId");
 
                     b.ToTable("AreaPlaceCategories0");
                 });
@@ -82,6 +87,25 @@ namespace LightNorma.Migrations
                     b.ToTable("AreaRoomPlaces");
                 });
 
+            modelBuilder.Entity("LightNorma.Models.BaseAppilcationCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BaseAppilcationCategories");
+                });
+
             modelBuilder.Entity("LightNorma.Models.IlluminanceNorma", b =>
                 {
                     b.Property<int>("Id")
@@ -95,6 +119,9 @@ namespace LightNorma.Migrations
 
                     b.Property<int?>("LightReglamentId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double?>("Ra")
                         .HasColumnType("float");
@@ -613,6 +640,15 @@ namespace LightNorma.Migrations
                         .HasForeignKey("AreaRoomPlacesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("LightNorma.Models.AreaPlaceCategory0", b =>
+                {
+                    b.HasOne("LightNorma.Models.BaseAppilcationCategory", "BaseAppilcationCategory")
+                        .WithMany()
+                        .HasForeignKey("BaseAppilcationCategoryId");
+
+                    b.Navigation("BaseAppilcationCategory");
                 });
 
             modelBuilder.Entity("LightNorma.Models.AreaRoomPlace", b =>

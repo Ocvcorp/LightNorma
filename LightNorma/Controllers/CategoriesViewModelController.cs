@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using LightNorma.Models;
+using LightNorma.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,44 +10,72 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LightNorma.Controllers
 {
-    public class IlluminanceNormaController : Controller
+    public class CategoriesViewModelController : Controller
     {
         LightNormaDBContext db;
         
-        public IlluminanceNormaController(LightNormaDBContext context)
+        public CategoriesViewModelController(LightNormaDBContext context)
         {
             db = context;
         }
         public IActionResult Index()
         {
-            var extractILN = db.IlluminanceNormas.Include(p => p.AreaRoomPlaces)
-                                                 .Include(p => p.LightReglament)
-                                                 .Include(p => p.IlluminanceSets)
-                                                 .ToList();
-            ViewBag.WorkRanks = db.SP52WorkRanks.ToList();
-            ViewBag.WorkSubRanks = db.SP52WorkSubRanks.ToList();
+            List<CategoriesViewModel> categoriesViewModels = new List<CategoriesViewModel>();
+            CategoriesViewModel categoriesViewModel1=new();
+            var bacs= db.BaseAppilcationCategories.ToList();
+            var apc1s=db.AreaPlaceCategories1.ToList();
+            for (int i = 0; i < bacs.Count(); i++)
+            {
+                var bac = bacs[i];
+                for (int j = 0; j < apc1s.Count(); j++)
+                {
+                    var apc = apc1s[j];
+                    var arps=db.AreaRoomPlaces.Where(a =>  a.BaseAppilcationCategoryId==bac.Id
+                                                        && a.AreaPlaceCategory1Id==apc.Id
+                                                     ).ToList();
+                    CategoriesViewModel categoriesViewModel = new CategoriesViewModel
+                    {
+                        BaseAppilcationCategory = bac,
+                        AreaPlaceCategory1 = apc,
+                        AreaPlaceCategories0 = db.AreaPlaceCategories0.Where(apc0 => arps.Any(a => a.Id == apc0.Id)).ToList(),
+                        AreaRoomPlaces = arps             
+                    };
+                    categoriesViewModels.Add(categoriesViewModel);
+                }
+            }
 
-            return View(extractILN);
+            /*ViewBag.BaseAppilcationCategories = db.BaseAppilcationCategories.ToList();
+            ViewBag.AreaPlaceCategories1 = db.AreaPlaceCategories1.ToList();
+            ViewBag.AreaPlaceCategories0 = db.AreaPlaceCategories0.ToList();
+            ViewBag.AreaPlaceCategories0 = db.AreaPlaceCategories0.ToList();
+
+            ViewBag.WorkRanks = db.SP52WorkRanks.ToList();
+            ViewBag.WorkSubRanks = db.SP52WorkSubRanks.ToList();*/
+
+            return View(categoriesViewModels);
         }
         [HttpGet]
         public IActionResult Create()
         {
-            MultiSelectList areaPlaceCategory0 = new MultiSelectList(db.AreaPlaceCategories0, "Id", "Name");
-            ViewBag.AreaPlaceCategories0 = areaPlaceCategory0;
+            
+            SelectList baseAppilcationCategories = new SelectList(db.BaseAppilcationCategories, "Id", "Name");
+            ViewBag.bacList = baseAppilcationCategories;
+            SelectList areaPlaceCategories1 = new SelectList(db.AreaPlaceCategories1, "Id", "Name");
+            ViewBag.apc1List = areaPlaceCategories1;
+
+            MultiSelectList areaPlaceCategories0 = new MultiSelectList(db.AreaPlaceCategories0, "Id", "Name");
+            ViewBag.apcs = areaPlaceCategories0;
             MultiSelectList areaRoomPlaces = new MultiSelectList(db.AreaRoomPlaces, "Id", "Name");
             ViewBag.AreaRoomPlaces = areaRoomPlaces;
             
-            SelectList sP52WorkRanks = new SelectList(db.SP52WorkRanks, "Id", "Value");
-            ViewBag.SP52WorkRanks = sP52WorkRanks;
-            SelectList sP52WorkSubRanks = new SelectList(db.SP52WorkSubRanks, "Id", "Value");
-            ViewBag.SP52WorkSubRanks = sP52WorkSubRanks;
+            
 
-
+            /*
             ViewBag.SP52Illuminances = new SelectList(db.SP52Illuminances.ToList(),"Id","Value");
             List<string> typeNames=new List<string>{"Горизонтальная", "Вертикальная", 
                                                  "Цилиндрическая", "Полуцилиндрическая", "Произвольная"};//попробовать организовать в виде словаря, перечисления?
             ViewBag.TypeNames = new SelectList(typeNames);
-            /*SelectList illuminances = new SelectList(db.SP52Illuminances, "Id", "Value");
+            SelectList illuminances = new SelectList(db.SP52Illuminances, "Id", "Value");
             ViewBag.Illuminances = illuminances;
             SelectList combinedCommonIlluminances = new SelectList(db.SP52Illuminances, "Id", "Value");
             ViewBag.CombinedCommonIlluminances = illuminances;

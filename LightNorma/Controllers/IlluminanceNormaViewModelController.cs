@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using LightNorma.Models;
+using LightNorma.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LightNorma.Controllers
 {
-    public class IlluminanceNormaController : Controller
+    public class IlluminanceNormaViewModelController : Controller
     {
         LightNormaDBContext db;
         
-        public IlluminanceNormaController(LightNormaDBContext context)
+        public IlluminanceNormaViewModelController(LightNormaDBContext context)
         {
             db = context;
         }
@@ -23,6 +24,8 @@ namespace LightNorma.Controllers
                                                  .Include(p => p.LightReglament)
                                                  .Include(p => p.IlluminanceSets)
                                                  .ToList();
+            ViewBag.AreaPlaceCategory0 = db.AreaPlaceCategories0.ToList();
+
             ViewBag.WorkRanks = db.SP52WorkRanks.ToList();
             ViewBag.WorkSubRanks = db.SP52WorkSubRanks.ToList();
 

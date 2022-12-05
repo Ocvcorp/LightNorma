@@ -24,13 +24,13 @@ namespace LightNorma.Migrations
 
             modelBuilder.Entity("AreaPlaceCategory0AreaRoomPlace", b =>
                 {
-                    b.Property<int>("AreaPlaceCategoriesId")
+                    b.Property<int>("AreaPlaceCategories0Id")
                         .HasColumnType("int");
 
                     b.Property<int>("AreaRoomPlacesId")
                         .HasColumnType("int");
 
-                    b.HasKey("AreaPlaceCategoriesId", "AreaRoomPlacesId");
+                    b.HasKey("AreaPlaceCategories0Id", "AreaRoomPlacesId");
 
                     b.HasIndex("AreaRoomPlacesId");
 
@@ -56,6 +56,25 @@ namespace LightNorma.Migrations
                     b.ToTable("AreaPlaceCategories0");
                 });
 
+            modelBuilder.Entity("LightNorma.Models.AreaPlaceCategory1", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AreaPlaceCategories1");
+                });
+
             modelBuilder.Entity("LightNorma.Models.AreaRoomPlace", b =>
                 {
                     b.Property<int>("Id")
@@ -63,6 +82,12 @@ namespace LightNorma.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("AreaPlaceCategory1Id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BaseAppilcationCategoryId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -80,6 +105,25 @@ namespace LightNorma.Migrations
                     b.ToTable("AreaRoomPlaces");
                 });
 
+            modelBuilder.Entity("LightNorma.Models.BaseAppilcationCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BaseAppilcationCategories");
+                });
+
             modelBuilder.Entity("LightNorma.Models.IlluminanceNorma", b =>
                 {
                     b.Property<int>("Id")
@@ -93,6 +137,18 @@ namespace LightNorma.Migrations
 
                     b.Property<int?>("LightReglamentId")
                         .HasColumnType("int");
+
+                    b.Property<double?>("NatArtifSideDF")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("NatArtifTopOrCombinedDF")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("NaturalSideDF")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("NaturalTopOrCombinedDF")
+                        .HasColumnType("float");
 
                     b.Property<string>("Notes")
                         .HasColumnType("nvarchar(max)");
@@ -150,6 +206,9 @@ namespace LightNorma.Migrations
 
                     b.Property<double?>("OZAngleNormal")
                         .HasColumnType("float");
+
+                    b.Property<string>("PlaneDescription")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("SP52IlluminanceId")
                         .HasColumnType("int");
@@ -231,30 +290,6 @@ namespace LightNorma.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("SP52CityAreaCategories");
-                });
-
-            modelBuilder.Entity("LightNorma.Models.SP52Constants.SP52DaylightFactor", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Conditions")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("IlluminanceNormaId")
-                        .HasColumnType("int");
-
-                    b.Property<double?>("Value")
-                        .HasColumnType("float");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IlluminanceNormaId");
-
-                    b.ToTable("SP52DaylightFactors");
                 });
 
             modelBuilder.Entity("LightNorma.Models.SP52Constants.SP52Illuminance", b =>
@@ -605,7 +640,7 @@ namespace LightNorma.Migrations
                 {
                     b.HasOne("LightNorma.Models.AreaPlaceCategory0", null)
                         .WithMany()
-                        .HasForeignKey("AreaPlaceCategoriesId")
+                        .HasForeignKey("AreaPlaceCategories0Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -643,7 +678,7 @@ namespace LightNorma.Migrations
             modelBuilder.Entity("LightNorma.Models.IlluminanceSet", b =>
                 {
                     b.HasOne("LightNorma.Models.IlluminanceNorma", "IlluminanceNorma")
-                        .WithMany("illuminanceSets")
+                        .WithMany("IlluminanceSets")
                         .HasForeignKey("IlluminanceNormaId");
 
                     b.HasOne("LightNorma.Models.SP52Constants.SP52Illuminance", "SP52Illuminance")
@@ -653,15 +688,6 @@ namespace LightNorma.Migrations
                     b.Navigation("IlluminanceNorma");
 
                     b.Navigation("SP52Illuminance");
-                });
-
-            modelBuilder.Entity("LightNorma.Models.SP52Constants.SP52DaylightFactor", b =>
-                {
-                    b.HasOne("LightNorma.Models.IlluminanceNorma", "IlluminanceNorma")
-                        .WithMany("DaylightFactors")
-                        .HasForeignKey("IlluminanceNormaId");
-
-                    b.Navigation("IlluminanceNorma");
                 });
 
             modelBuilder.Entity("LightNorma.Models.SP52IndustrialLightRequirement", b =>
@@ -785,9 +811,7 @@ namespace LightNorma.Migrations
                 {
                     b.Navigation("AreaRoomPlaces");
 
-                    b.Navigation("DaylightFactors");
-
-                    b.Navigation("illuminanceSets");
+                    b.Navigation("IlluminanceSets");
                 });
 #pragma warning restore 612, 618
         }

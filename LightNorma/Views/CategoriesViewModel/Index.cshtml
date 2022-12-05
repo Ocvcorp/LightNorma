@@ -1,0 +1,48 @@
+﻿
+@model IEnumerable<LightNorma.ViewModels.CategoriesViewModel>
+
+
+@{
+    ViewData["Title"] = "Помещения и площади";
+
+}
+
+    <h3>Классификация нормируемых пространств</h3>
+    @Html.ActionLink("Новые пространства", "Create")
+    <table class="table">
+        <tr>
+            <td>N№ поз.</td>
+            <td>Базовая категория</td>
+            <td>Уровень 1</td>
+            <td>Уровень 0</td>
+            <td>Помещения, поверхности</td>
+        </tr>
+        @{
+            int num=1; 
+            string cat0 = "";
+            string arp = "";
+        }
+        @foreach (var cat in Model)
+        {            
+            foreach (var apc0 in @cat.AreaPlaceCategories0)
+            {
+                cat0 += apc0 + ", ";
+            }
+            foreach (var a in @cat.AreaRoomPlaces)
+            {
+                arp += a + ", ";
+            }
+            <tr>
+                <td>num</td>
+                <td> @cat.BaseAppilcationCategory.Name </td>
+                <td> @cat.AreaPlaceCategory1.Name </td>
+                <td> @cat0 </td>
+                <td> @arp </td>
+            </tr>    
+            num++;
+        }
+
+    </table>
+   
+
+

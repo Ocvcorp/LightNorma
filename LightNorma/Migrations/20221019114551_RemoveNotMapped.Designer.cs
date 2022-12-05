@@ -645,7 +645,7 @@ namespace LightNorma.Migrations
             modelBuilder.Entity("LightNorma.Models.IlluminanceSet", b =>
                 {
                     b.HasOne("LightNorma.Models.IlluminanceNorma", "IlluminanceNorma")
-                        .WithMany("illuminanceSets")
+                        .WithMany("IlluminanceSets")
                         .HasForeignKey("IlluminanceNormaId");
 
                     b.HasOne("LightNorma.Models.SP52Constants.SP52Illuminance", "SP52Illuminance")
@@ -789,7 +789,7 @@ namespace LightNorma.Migrations
 
                     b.Navigation("DaylightFactors");
 
-                    b.Navigation("illuminanceSets");
+                    b.Navigation("IlluminanceSets");
                 });
 #pragma warning restore 612, 618
         }

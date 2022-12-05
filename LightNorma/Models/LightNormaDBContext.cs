@@ -26,26 +26,16 @@ namespace LightNorma.Models
         public DbSet<SP52PublicLightRequirement> SP52PublicLightRequirements { get; set; }
         public DbSet<IlluminanceNorma> IlluminanceNormas { get; set; }
         public DbSet<IlluminanceSet> IlluminanceSets { get; set; }
-        public DbSet<SP52Constants.SP52DaylightFactor> SP52DaylightFactors { get; set; }
+        public DbSet<BaseAppilcationCategory> BaseAppilcationCategories { get; set; }
+        public DbSet<AreaPlaceCategory1> AreaPlaceCategories1 { get; set; }
         public DbSet<AreaPlaceCategory0> AreaPlaceCategories0 { get; set; }
         public DbSet<AreaRoomPlace> AreaRoomPlaces { get; set; }
-
+        
         public LightNormaDBContext(DbContextOptions<LightNormaDBContext> options)
             :base(options)
         {
             
         }
-        /*protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<SP52PublicLightRequirement>().HasMany(x => x.SP52PublicLightNormaNotes)
-                .WithMany(x => x.sp52PublicLightRequirements)
-                .UsingEntity<SP52Constants.SP52PublicLightRequirementSP52PublicLightNormaNote>(
-                x => x.HasOne(x => x.SP52PublicLightNormaNote).WithMany().HasForeignKey(x => x.SP52PublicLightNormaNotesId),
-                x => x.HasOne(x => x.SP52PublicLightRequirement)
-                .WithMany().HasForeignKey(x => x.SP52PublicLightRequirementsId));
-        }*/
-
-
 
     }
 }

@@ -1,15 +1,63 @@
-﻿@model LightNorma.Models.IlluminanceNorma
+﻿@model LightNorma.ViewModels.CategoriesViewModel
 @{
-    ViewData["Title"] = "Добавление нормируемых показателей";
-
+    ViewData["Title"] = "Добавление новых помещений, площадей";
 }
 
 @using (Html.BeginForm(FormMethod.Post, new { id = "CreateForm" }))
 {
     @Html.AntiForgeryToken()
-    <div>@Html.EditorFor(model=>model.WorkRank)</div>
+    <div class="p-1">
+        <div class="row">
+            <div class="col-xl-2">
+                @Html.LabelFor(model => model.BaseAppilcationCategory)
+                 </div>
+            </div>
+        <div class="row">            
+            <div class="col-xl-2">
+                @Html.EditorFor(model=>model.BaseAppilcationCategory.Name, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+                <div class="col-xl-2">
+                    @Html.ListBox("bacList", ViewBag.bacList as SelectList,new { @class = "form-control" })
+                    <input id="put2textbox" type="button" value="Add..." class="btn-group"/>
+                </div>
+            <div class="row">
+                <div class="col-xl-2">
+                    @Html.LabelFor(model => model.AreaPlaceCategory1)
+                </div>
+            </div>
+        <div class="row">
+            <div class="col-xl-2">
+                
+                @Html.EditorFor(model=>model.AreaPlaceCategory1.Name, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            <div class="col-xl-2">
+                @Html.ListBox("apc1List", ViewBag.apc1List as SelectList,new { @class = "form-control" })
+            </div>
+        </div>
+            <div class="row">
+                <div class="col-xl-2">
+                    @Html.LabelFor(model => model.AreaPlaceCategories0)
+                    @Html.Editor("cat0", new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                
+            </div>
+            <div class="row">
+                <div class="col-xl-2">
+                        @Html.LabelFor(model => model.AreaRoomPlaces)
+                    @Html.Editor("roomPlace", new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+            </div>
+                
+                
+        </div>
+       </div>     
+    
+    
+    
+    
+    
     <div id="illuminancePartial" name="illuminancePartial">
-        @await Html.PartialAsync("IlluminancePartial")
+    @*    @await Html.PartialAsync("IlluminancePartial") *@
     </div>
     <div id="new_illuminancePartial"></div>
     <div class="p-1">
@@ -20,16 +68,18 @@
         </div>
     </div>    
 }
-<input id="getIlluminancePartial" type="button" value="Add illuminance" />
+
 
 @section scripts
 {
     <script type="text/javascript">
         $(document).ready(function(){
-            $('#getIlluminancePartial').click(function (e){
+            $('#put2textbox').click(function (e) {
                 e.preventDefault();
-                var newIll = $('#illuminancePartial').clone();
-                $('#CreateForm').append(newIll);
+                var value = $('#bacList option:selected').text();
+                $('#BaseAppilcationCategory_Name').val(value);
+                //String newIll = "sitcum";//$('#illuminancePartial').clone();
+                //$('#CreateForm input#BaseAppilcationCategory_Name').val('sitcum');
             });
         });
     

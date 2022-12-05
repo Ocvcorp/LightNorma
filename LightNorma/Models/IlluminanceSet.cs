@@ -15,6 +15,7 @@ namespace LightNorma.Models
         public double? OYAngleNormal { get; set; }
         public double? OZAngleNormal { get; set; }
         public double? IllumHeight { get; set; }
+        public string PlaneDescription { get; set; }
         public string AdditionalPlaneInfo { get; set; }
         public int? IlluminanceNormaId { get; set; } 
         public IlluminanceNorma IlluminanceNorma { get; set; }
